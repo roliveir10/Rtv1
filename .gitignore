@@ -1,0 +1,11 @@
+*.o
+*.d
+.o
+*.swp
+.vscode
+libft/libft.a
+a.out
+void
+fdf.dSYM
+test
+to_do

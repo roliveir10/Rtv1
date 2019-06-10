@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/28 01:21:35 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/07 11:54:03 by roliveir         ###   ########.fr        #
+#    Updated: 2019/06/09 12:40:33 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ LIBSFOLDERS = -L./libft
 vpath %.c $(dir MAKEFILE_LIST)
 MLX_FLAG = -lmlx -framework OpenGL -framework AppKit
 CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft/includes -I./minilibx/ -g3
+CPPFLAGS += -MMD -MP
 OBJDIR = .o
 UNAME = $(shell uname)
 
@@ -46,12 +47,12 @@ $(OBJDIR):
 $(OBJDIR)/%.o: srcs/%.c | $(OBJDIR)
 	@$(shell mkdir -p $(dir $@))
 	@printf "%-50s" "Precompiling $(notdir $@)..."
-	@$(CC) $(CFLAGS) -c -o $@ $< 2> ./tmp_log || /usr/bin/touch ./tmp_errors
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< 2> ./tmp_log || /usr/bin/touch ./tmp_errors
 	@if [ -e tmp_errors ]; then \
 		printf "\033[1;31m[KO]\n\033[0m" && /bin/cat 1>&2 ./tmp_log && touch files_missing; \
 	elif test -s ./tmp_log; then \
 		printf "\033[1;33m[WARNING]\n\033[0m" && /bin/cat ./tmp_log; \
-	else\
+	else \
 		printf "\033[1;32m[OK]\n\033[0m"; \
 	fi;
 	@$(RM) ./tmp_errors
