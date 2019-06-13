@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 10:42:05 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/10 13:32:20 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/13 03:34:01 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void			rt_get_posinter(t_pos o, t_pos pix, t_inter *inter)
 	inter->z = o.z + pix.z * inter->t;
 }
 
-t_pos			rt_get_vector(t_pos inter, t_pos pos)
+t_pos			rt_get_vector(t_pos pos, t_pos inter)
 {
 	t_pos		vector;
 
-	vector.x = pos.x - inter.x;
-	vector.y = pos.y - inter.y;
-	vector.z = pos.z - inter.z;
-	return (rt_normalize(vector));
+	vector.x = inter.x - pos.x;
+	vector.y = inter.y - pos.y;
+	vector.z = inter.z - pos.z;
+	return (vector);
 }
 
 double			rt_dot_product(t_pos va, t_pos vb)

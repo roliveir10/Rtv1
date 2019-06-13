@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/10 17:34:20 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/13 08:39:33 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define SCREENX 2080
 # define SCREENY 1170
 
-# define NBR_FORM 2
+# define NBR_FORM 4
 # define RANDOM 0.5
 
 typedef enum			e_event
@@ -64,6 +64,7 @@ typedef struct			s_inter
 	double				z;
 	double				t;
 	t_color				color;
+	t_pos				norm;
 	char				out;
 }						t_inter;
 
@@ -73,6 +74,12 @@ typedef struct			s_lum
 	t_color				color;
 }						t_lum;
 
+typedef struct			s_solve
+{
+	double				ta;
+	double				tb;
+}						t_solve;
+
 typedef struct			s_cam
 {
 	t_pos				pos;
@@ -81,12 +88,15 @@ typedef struct			s_cam
 	double				vp_width;
 	double				vp_height;
 	double				vp_dist;
+	double				rot_mat[3][3][3];
 }						t_cam;
 
 typedef enum			e_ftype
 {
 	SPHERE,
-	PLAN
+	PLAN,
+	CYLINDRE,
+	CONE
 }						t_ftype;
 
 typedef struct			s_form
@@ -95,7 +105,10 @@ typedef struct			s_form
 	t_pos				center;
 	t_pos				point;
 	double				r;
+	double				h;
+	double				angle;
 	t_color				color;
+	double				rotation[3];
 	char				out;
 }						t_form;
 
@@ -114,13 +127,17 @@ int						rt_main(t_env *env);
 int						rt_delenv(t_env *env);
 
 /*
-**	form
+**	shape
 */
 
 t_inter					rt_browse_form(t_env *env, t_form **form, t_pos pix);
 void					rt_sphere(t_pos o, t_pos pix, t_form form,
 		t_inter *inter);
 void					rt_plan(t_pos o, t_pos pix, t_form form,
+		t_inter *inter);
+void					rt_cylindre(t_pos a, t_pos pix, t_form form,
+		t_inter *inter);
+void					rt_cone(t_pos a, t_pos pix, t_form form,
 		t_inter *inter);
 
 /*
@@ -150,13 +167,12 @@ t_pos					rt_vmul(t_pos pos, double f);
 t_pos					rt_vadd(t_pos pos_a, t_pos pos_b);
 t_pos					rt_vsub(t_pos pos_a, t_pos pos_b);
 t_pos					rt_get_pospix(t_cam cam, int x, int y);
-double					rt_resolv_nd_degre(double a, double b, double c,
-		char *out);
 void					rt_get_posinter(t_pos o, t_pos pix, t_inter *inter);
-t_pos					rt_get_vector(t_pos inter, t_pos pos);
+t_pos					rt_get_vector(t_pos pos, t_pos inter);
 t_pos					rt_get_normal(t_inter inter, t_form form);
 t_pos					rt_normalize(t_pos vector);
 double					rt_dot_product(t_pos va, t_pos vb);
+double					rt_get_t(double a, double b, double c, char *out);
 
 /*
 **	key_handler
@@ -164,6 +180,14 @@ double					rt_dot_product(t_pos va, t_pos vb);
 
 int						rt_keypress(int keycode, void *param);
 int						rt_close(void *param);
+
+/*
+**	rotation
+*/
+
+void					rt_vect_rotation(t_pos *vec, double mat[3][3]);
+void					rt_set_ref(t_pos *o, t_pos *dir, t_form form);
+void					rt_reset_point(t_form form, t_pos *inte);
 
 /*
 **	debug
