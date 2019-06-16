@@ -6,12 +6,12 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/10 17:36:39 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/12 06:46:10 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
-
+#include "pars.h"
+/*
 static void		pars_fill_cam(t_cam *cam)
 {
 	t_pos		vx;
@@ -31,11 +31,19 @@ static void		pars_fill_cam(t_cam *cam)
 	cam->vp_upleft.x = cam->pos.x + vz.x + vy.x - vx.x;
 	cam->vp_upleft.y = cam->pos.y + vz.y + vy.y - vx.y;
 	cam->vp_upleft.z = cam->pos.z + vz.z + vy.z - vx.z;
-}
+}*/
 
-int				main(void)
+int				main(int argc, char **argv)
 {
-	t_env		env;
+	t_env		*env;
+
+	if (argc != 2)
+	{
+		ft_putstr_fd("rtv1: usge\n", 2);
+		return (1);
+	}
+	env = pars_file(argv[1]);
+	/*
 
 	ft_bzero(&env, sizeof(t_env));
 	pars_fill_cam(&env.cam);
@@ -55,7 +63,7 @@ int				main(void)
 	env.lum[0].pos.y = 0;
 	env.lum[0].pos.z = 0;
 	rt_attribute_color(0xFFFFFF, &env.lum[0].color);
-	/*env.lum[1].pos.x = -3.0;
+	env.lum[1].pos.x = -3.0;
 	env.lum[1].pos.y = 0;
 	env.lum[1].pos.z = 0;
 	rt_attribute_color(0x0000FF, &env.lum[1].color);
@@ -86,6 +94,6 @@ int				main(void)
 	env.form[3].r = 1.0;
 	rt_attribute_color(0x8F0000, &env.form[3].color);
 */
-	rt_main(&env);
+//	rt_main(&env);
 	return (0);
 }
