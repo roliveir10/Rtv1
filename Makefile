@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/28 01:21:35 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/11 23:47:06 by oboutrol         ###   ########.fr        #
+#    Updated: 2019/06/16 11:42:43 by oboutrol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBS = -lft
 LIBSFOLDERS = -L./libft
 vpath %.c $(dir MAKEFILE_LIST)
 MLX_FLAG = -lmlx -framework OpenGL -framework AppKit
-CFLAGS = -Wall -Wextra -Werror -I./includes -I./libft/includes -I./minilibx/ -g3
+CFLAGS = -Wall -Wextra -Werror -flto -O2 -I./includes -I./libft/includes -I./minilibx/ -g3
 CPPFLAGS += -MMD -MP
 OBJDIR = .o
 UNAME = $(shell uname)
