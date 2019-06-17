@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 10:04:52 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/12 04:58:34 by oboutrol         ###   ########.fr        #
+#    Updated: 2019/06/17 16:33:36 by oboutrol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ PARSER =	parser_main.c		\
 			lex_pile.c			\
 			print_token.c		\
 			lex_get.c			\
+			pars_token.c		\
+			pars_type.c			\
+			pars_field_camera.c	\
 			pars_init.c			\
 			lex_add_char.c
 

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:16:29 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/16 11:37:59 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/16 22:24:09 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static int	lex_process(t_token *token, t_stat *stat, char buff[BUFF])
 		if ((type = pile_last(stat)) == BRAO)
 			stat->status = LSTOB;
 	if (st == ERROR)
+	{
+		ft_putendl(buff);
 		return (1);
+	}
 	if (stat->type != SPAC && (st == LSTCP || st == LSTOB))
 		pile_up(stat, stat->type);
 	if (stat->type != SPAC)
@@ -39,18 +42,18 @@ static int	lex_process(t_token *token, t_stat *stat, char buff[BUFF])
 	return (0);
 }
 
-static int	lex_error(t_token *token, t_stat *stat)//, char buff[BUFF])
+static int	lex_error(t_token *token, t_stat *stat, int k)//, char buff[BUFF])
 {
 	ft_strdel(&stat->load);
-	ft_putnbr(stat->old_status);ft_putstr(" || old one vs ||");
-	ft_putnbr(stat->type);ft_putstr(" _____ FINISH _____\n");
 	//ft_strdel(&buff);
 	free_token(token);
-	ft_putstr_fd("error\n", 2);
+	ft_putstr_fd("rt: error line ", 2);
+	ft_putnbr_fd(k, 2);
+	ft_putstr("\n");
 	return (1);
 }
 
-int			pars_build_line(t_token *token, char *str, t_stat *stat)
+int			pars_build_line(t_token *token, char *str, t_stat *stat, int s)
 {
 	int		k;
 	char	buff[BUFF];
@@ -65,8 +68,10 @@ int			pars_build_line(t_token *token, char *str, t_stat *stat)
 		stat->status = get_next_state(stat->status, stat->type);
 		stat->val = get_val(stat->old_status, stat->type);
 		if (lex_process(token, stat, buff))
-			return (lex_error(token, stat));//, buff));
+			return (lex_error(token, stat, s));//, buff));
 	}
+	if (buff[0])
+		lex_add_token(buff, stat, token);
 	//free(buff);
 	return (0);
 }

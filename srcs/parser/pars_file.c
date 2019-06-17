@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:58:22 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/16 11:41:07 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:57:23 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ static int	token_up(int fd, t_token *token, char **str)
 	char	*line;
 	int		pos;
 	t_stat	stat;
+	int		k;
 
+	k = 0;
 	ft_bzero(&stat, sizeof(t_stat));
 	stat.status = START;
 	pos = -1;
 	line = NULL;
 	while ((ret = get_line(fd, &line, str)) > 0)
 	{
-		if (pars_build_line(token, line, &stat))
+		if (pars_build_line(token, line, &stat, ++k))
 			return (1);
 		ft_strdel(&line);
 	}
@@ -65,5 +67,5 @@ t_env		*pars_file(char *str)
 		free(rest);
 	//print_token(token->next);ft_putchar('\n');
 	print_norm(token->next);
-	return (NULL);//token_to_env(token->next));
+	return (token_to_env(token->next));
 }

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:25:51 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/16 11:41:05 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/16 21:57:42 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int					get_type(char c)
 		if (str[k] == c)
 			return (k);
 	}
-	if (ft_isdigit(c))
-		return (NOMBR);
+	if (ft_isdigit(c) || c == '-' || c == '+')
+		return (NBRS);
 	else if (ft_strchr(" \t", c))
 		return (SPAC);
 	return (CHAR);
@@ -34,10 +34,10 @@ int					get_type(char c)
 int					get_next_state(int status, int type)
 {
 	static int		mat[NB_STATUS][NB_TYPE] = {
-		{NAMES, ERROR, ERROR, LSTCP, ERROR, ERROR, ERROR, ERROR, START, ERROR},
+		{NAMES, ERROR, ERROR, LSTCP, PILDW, ERROR, PILDW, NOMBR, START, ERROR},
 		{TWPTS, NAMES, NAMES, NAMES, NAMES, NAMES, NAMES, NAMES, NAMES, NAMES},
 		{ERROR, ARGMT, ERROR, ERROR, ERROR, ERROR, ERROR, ERROR, TWPTS, ERROR},
-		{WORDS, ERROR, ERROR, LSTCP, ERROR, LSTOB, ERROR, ERROR, ARGMT, ERROR},
+		{WORDS, ERROR, ERROR, LSTCP, ERROR, LSTOB, ERROR, NOMBR, ARGMT, ERROR},
 		{ENDED, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS},
 		{ERROR, ERROR, START, ERROR, PILDW, ERROR, PILDW, ERROR, ENDED, ERROR}, 
 		{ERROR, ERROR, START, ERROR, PILDW, ERROR, PILDW, NOMBR, ENDED, ERROR}, 

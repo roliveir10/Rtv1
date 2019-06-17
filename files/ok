@@ -1,0 +1,25 @@
+{
+	 "camera":
+		 {
+			 "origin":[10, 20, 30],
+			 "fov":102,
+			 "vectn":[10, 20, 30],
+		 },
+	 "light":[
+		 {
+			 "origin":[60, 120, -60],
+			 "color":[255, 255, 255],
+			 "intensity":20000
+		 },
+		 {
+			 "origin":[200, 200, -20],
+			 "color":[255, 100, 255],
+			 "intensity":60000
+		 }],
+		 "object":[
+		 {
+			 "type":"ball",
+			 "origin":[0, 10, 0],
+			 "rayon":10
+		 }]
+}

@@ -6,13 +6,14 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/16 10:01:50 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:57:18 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARS_H
 # define PARS_H
 # define FALSE 0
+# define NB_TYPES 3
 # define TRUTH 1
 # include "rt.h"
 # define BUFF 2048
@@ -103,9 +104,8 @@ typedef struct		s_stat
 	int				val;
 }					t_stat;
 
-int					pars_build_line(t_token *token, char *str, t_stat *stat);
+int					pars_build_line(t_token *tok, char *str, t_stat *st, int k);
 t_env				*pars_file(char *str);
-t_env				*token_to_env(t_token *token);
 int					get_type(char c);
 int					get_next_state(int status, int type);
 int					get_val(int status, int type);
@@ -120,5 +120,22 @@ void				print_pile(t_pile *pile);
 void				pile_up(t_stat *stat, int type);
 int					pile_down(t_stat *stat, int type);
 int					pile_last(t_stat *stat);
+
+/*
+**	Parsing tokens
+*/
+
+t_env				*token_to_env(t_token *token);
+int					pars_type(t_token *token, t_env *env);
+int					pars_camera(t_token *token, t_env *env);
+int					pars_object(t_token *token, t_env *env);
+int					pars_light(t_token *token, t_env *env);
+
+/*
+**	Parsing fields
+*/
+
+int					pars_field_camera(t_token *token, t_env *env);
+int					pars_store_vector(t_token *token, t_env *env, int field);
 
 #endif
