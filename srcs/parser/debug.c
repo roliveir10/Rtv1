@@ -6,14 +6,14 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 13:08:04 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/07 13:40:58 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/15 14:59:32 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 #include <stdio.h>
 
-void			debug_print_pos(t_pos pos)
+void			debug_print_pos(t_vector pos)
 {
 	printf("%f %f %f\n", pos.x, pos.y, pos.z);
 }	

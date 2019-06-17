@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_add_mul_sub_vector.c                            :+:      :+:    :+:   */
+/*   rt_vector_operation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/09 21:08:20 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/11 00:31:01 by roliveir         ###   ########.fr       */
+/*   Created: 2019/06/15 15:23:14 by roliveir          #+#    #+#             */
+/*   Updated: 2019/06/15 15:23:34 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_pos			rt_vmul(t_pos pos, double f)
+t_vector			rt_vmul(t_vector pos, double f)
 {
-	t_pos		result;
+	t_vector		result;
 
 	result.x = pos.x * f;
 	result.y = pos.y * f;
@@ -22,9 +22,9 @@ t_pos			rt_vmul(t_pos pos, double f)
 	return (result);
 }
 
-t_pos			rt_vadd(t_pos pos_a, t_pos pos_b)
+t_vector			rt_vadd(t_vector pos_a, t_vector pos_b)
 {
-	t_pos		result;
+	t_vector		result;
 
 	result.x = pos_a.x + pos_b.x;
 	result.y = pos_a.y + pos_b.y;
@@ -32,9 +32,9 @@ t_pos			rt_vadd(t_pos pos_a, t_pos pos_b)
 	return (result);
 }
 
-t_pos			rt_vsub(t_pos pos_a, t_pos pos_b)
+t_vector			rt_vsub(t_vector pos_a, t_vector pos_b)
 {
-	t_pos		result;
+	t_vector		result;
 
 	result.x = pos_a.x - pos_b.x;
 	result.y = pos_a.y - pos_b.y;

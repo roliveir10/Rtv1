@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:29:53 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/09 15:04:38 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/17 05:13:49 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int					rt_delenv(t_env *env)
 		ft_memdel((void**)&env->form);
 	if (env->form)
 		ft_memdel((void**)&env->lum);
-	if (env->inter)
-		ft_memdel((void**)&env->inter);
 	exit(1);
 	return (0);
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_calc_vector.c                                   :+:      :+:    :+:   */
+/*   rt_vector_calc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 10:42:05 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/13 03:34:01 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/17 05:02:47 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_pos			rt_get_pospix(t_cam cam, int x, int y)
+t_vector		rt_get_vecdir(t_cam cam, int x, int y)
 {
-	t_pos		pos;
+	t_vector	pos;
 	double		xindent;
 	double		yindent;
 
@@ -25,16 +25,29 @@ t_pos			rt_get_pospix(t_cam cam, int x, int y)
 	return (pos);
 }
 
-void			rt_get_posinter(t_pos o, t_pos pix, t_inter *inter)
+t_vector		rt_get_posinter(t_ray ray, double dist)
 {
-	inter->x = o.x + pix.x * inter->t;
-	inter->y = o.y + pix.y * inter->t;
-	inter->z = o.z + pix.z * inter->t;
+	t_vector	inter;
+
+	inter.x = ray.o.x + ray.dir.x * dist;
+	inter.y = ray.o.y + ray.dir.y * dist;
+	inter.z = ray.o.z + ray.dir.z * dist;
+	return (inter);
 }
 
-t_pos			rt_get_vector(t_pos pos, t_pos inter)
+t_vector		rt_get_vector(t_vector pos, t_vector inter)
 {
-	t_pos		vector;
+	t_vector	vector;
+
+	vector.x = inter.x - pos.x;
+	vector.y = inter.y - pos.y;
+	vector.z = inter.z - pos.z;
+	return (rt_normalize(vector));
+}
+
+t_vector		rt_get_vector_dist(t_vector pos, t_vector inter)
+{
+	t_vector	vector;
 
 	vector.x = inter.x - pos.x;
 	vector.y = inter.y - pos.y;
@@ -42,7 +55,7 @@ t_pos			rt_get_vector(t_pos pos, t_pos inter)
 	return (vector);
 }
 
-double			rt_dot_product(t_pos va, t_pos vb)
+double			rt_dot_product(t_vector va, t_vector vb)
 {
 	double		dp;
 

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:57:56 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/09 15:04:07 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/17 05:13:50 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,9 @@ static void			rt_initmlx(t_env *env)
 			&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
 }
 
-static t_inter		*rt_alloc_inter(int size)
-{
-	t_inter			*inter;
-
-	if (!(inter = (t_inter*)ft_memalloc(sizeof(t_inter) * size)))
-		return (NULL);
-	return (inter);
-}
-
 int					rt_main(t_env *env)
 {
 	rt_initmlx(env);
-	if (!(env->inter = rt_alloc_inter(env->nbr_form)))
-		rt_delenv(env);
 	rt_print(env);
 	mlx_hook(env->mlx.id, KEYPRESS, 0, rt_keypress, (void*)env);
 	mlx_hook(env->mlx.id, REDBUTTON, 0, rt_close, (void*)env);

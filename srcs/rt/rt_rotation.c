@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/13 08:39:40 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/17 05:14:00 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		rt_fill_matrot(double (*mat)[3][3][3], double dteta)
 	(*mat)[2][2][2] = 1.0;
 }
 
-void				rt_vect_rotation(t_pos *vec, double mat[3][3])
+void				rt_vect_rotation(t_vector *vec, double mat[3][3])
 {
 	double			tmpx;
 	double			tmpy;
@@ -54,26 +54,26 @@ void				rt_vect_rotation(t_pos *vec, double mat[3][3])
 	vec->z = mat[2][0] * tmpx + mat[2][1] * tmpy + mat[2][2] * vec->z;
 }
 
-void				rt_set_ref(t_pos *o, t_pos *dir, t_form form)
+void				rt_set_ref(t_ray *ray, t_form form)
 {
 	int				i;
 	int				j;
 	double			mat[3][3][3];
 
 	i = -1;
-	o->x -= form.center.x;
-	o->y -= form.center.y;
-	o->z -= form.center.z;
+	ray->o.x -= form.center.x;
+	ray->o.y -= form.center.y;
+	ray->o.z -= form.center.z;
 	while (++i < 3)
 	{
 		j = -1;
 		rt_fill_matrot(&mat, -form.rotation[i]);
 		while (++j < 3)
-			rt_vect_rotation(dir, mat[i]);
+			rt_vect_rotation(&ray->dir, mat[i]);
 	}
 }
 
-void				rt_reset_point(t_form form, t_pos *inte)
+void				rt_reset_point(t_form form, t_vector *inte)
 {
 	int				i;
 	double			mat[3][3][3];
@@ -84,7 +84,7 @@ void				rt_reset_point(t_form form, t_pos *inte)
 		rt_fill_matrot(&mat, form.rotation[i]);
 		rt_vect_rotation(inte, mat[i]);
 	}
-	(*inte).x += form.center.x;
-	(*inte).y += form.center.y;
-	(*inte).z += form.center.z;
+	inte->x += form.center.x;
+	inte->y += form.center.y;
+	inte->z += form.center.z;
 }
