@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 16:57:20 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/17 05:19:39 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define SCREENY 1170
 
 # define NBR_FORM 4
-# define RANDOM 0.5
+# define NBR_THREAD 1
 
 typedef enum			e_event
 {
@@ -43,36 +43,35 @@ typedef struct			s_mlx
 	int					endian;
 }						t_mlx;
 
-typedef struct			s_pos
+typedef struct			s_vector
 {
 	double				x;
 	double				y;
 	double				z;
-}						t_pos;
-
-typedef struct			s_color
-{
-	double				r;
-	double				g;
-	double				b;
-}						t_color;
+}						t_vector;
 
 typedef struct			s_inter
 {
-	double				x;
-	double				y;
-	double				z;
-	double				t;
-	t_color				color;
-	t_pos				norm;
 	char				out;
+	t_vector			pos;
+	t_vector			color;
+	t_vector			norm;
+	double				t;
+	int					index;
 }						t_inter;
 
 typedef struct			s_lum
 {
-	t_pos				pos;
-	t_color				color;
+	t_vector			pos;
+	t_vector			color;
 }						t_lum;
+
+typedef	struct			s_ray
+{
+	t_vector			o;
+	t_vector			dir;
+	double				t;
+}						t_ray;
 
 typedef struct			s_solve
 {
@@ -82,14 +81,13 @@ typedef struct			s_solve
 
 typedef struct			s_cam
 {
-	t_pos				pos;
-	t_pos				vec_dir[3];
-	t_pos				vp_upleft;
+	t_vector			pos;
+	t_vector			vec_dir[3];
+	t_vector			vp_upleft;
 	double				vp_width;
 	double				vp_height;
 	double				vp_dist;
 	double				rot_mat[3][3][3];
-	int					fov;
 }						t_cam;
 
 typedef enum			e_ftype
@@ -103,12 +101,12 @@ typedef enum			e_ftype
 typedef struct			s_form
 {
 	t_ftype				ftype;
-	t_pos				center;
-	t_pos				point;
+	t_vector			center;
+	t_vector			point;
 	double				r;
 	double				h;
 	double				angle;
-	t_color				color;
+	t_vector			color;
 	double				rotation[3];
 	char				out;
 }						t_form;
@@ -121,59 +119,56 @@ typedef struct			s_env
 	int					nbr_lum;
 	t_form				*form;
 	t_lum				*lum;
-	t_inter				*inter;
+	t_vector			color;
 }						t_env;
 
 int						rt_main(t_env *env);
 int						rt_delenv(t_env *env);
 
 /*
-**	shape
+**	shapes
 */
 
-t_inter					rt_browse_form(t_env *env, t_form **form, t_pos pix);
-void					rt_sphere(t_pos o, t_pos pix, t_form form,
-		t_inter *inter);
-void					rt_plan(t_pos o, t_pos pix, t_form form,
-		t_inter *inter);
-void					rt_cylindre(t_pos a, t_pos pix, t_form form,
-		t_inter *inter);
-void					rt_cone(t_pos a, t_pos pix, t_form form,
-		t_inter *inter);
+t_vector				rt_browse_form(t_env *env, t_ray ray);
+double					rt_sphere(t_ray ray, t_form form);
+double					rt_plan(t_ray ray, t_form form);
+double					rt_cylindre(t_ray ray, t_form form);
+double					rt_cone(t_ray ray, t_form form);
 
 /*
 **	print
 */
 
 void					rt_print(t_env *env);
-t_pos					rt_get_normal(t_inter inter, t_form form);
 
 /*
 **	light
 */
 
-t_inter					rt_light_manager(t_env *env, int index);
+t_vector				rt_light_manager(t_env *env, t_inter inter);
 
 /*
 ** color
 */
 
-void					rt_attribute_color(int color, t_color *s_color);
+void					rt_attribute_color(int color, t_vector *s_color);
+t_vector				rt_get_color(t_env *env, int i, int ind, double angle);
 
 /*
 **	calc
 */
 
-t_pos					rt_vmul(t_pos pos, double f);
-t_pos					rt_vadd(t_pos pos_a, t_pos pos_b);
-t_pos					rt_vsub(t_pos pos_a, t_pos pos_b);
-t_pos					rt_get_pospix(t_cam cam, int x, int y);
-void					rt_get_posinter(t_pos o, t_pos pix, t_inter *inter);
-t_pos					rt_get_vector(t_pos pos, t_pos inter);
-t_pos					rt_get_normal(t_inter inter, t_form form);
-t_pos					rt_normalize(t_pos vector);
-double					rt_dot_product(t_pos va, t_pos vb);
-double					rt_get_t(double a, double b, double c, char *out);
+t_vector				rt_vmul(t_vector pos, double f);
+t_vector				rt_vadd(t_vector pos_a, t_vector pos_b);
+t_vector				rt_vsub(t_vector pos_a, t_vector pos_b);
+t_vector				rt_get_vecdir(t_cam cam, int x, int y);
+t_vector				rt_get_posinter(t_ray ray, double dist);
+t_vector				rt_get_vector(t_vector pos, t_vector inter);
+t_vector				rt_get_vector_dist(t_vector pos, t_vector inter);
+t_vector				rt_get_normal(t_vector inter, t_form form);
+t_vector				rt_normalize(t_vector vector);
+double					rt_dot_product(t_vector va, t_vector vb);
+double					rt_resolv_nd_degre(double a, double b, double c);
 
 /*
 **	key_handler
@@ -186,13 +181,14 @@ int						rt_close(void *param);
 **	rotation
 */
 
-void					rt_vect_rotation(t_pos *vec, double mat[3][3]);
-void					rt_set_ref(t_pos *o, t_pos *dir, t_form form);
-void					rt_reset_point(t_form form, t_pos *inte);
+void					rt_vect_rotation(t_vector *vec, double mat[3][3]);
+void					rt_set_ref(t_ray *ray, t_form form);
+void					rt_reset_point(t_form form, t_vector *inte);
+t_ray					rt_update_base(t_env *env, int index, int forward);
 
 /*
 **	debug
 */
 
-void					debug_print_pos(t_pos pos);
+void					debug_print_pos(t_vector pos);
 #endif
