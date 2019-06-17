@@ -1,0 +1,27 @@
+{
+"camera":{
+	"origin”: [0, 10, -40],
+	“fov”: 120]
+},
+“objects”:
+[
+{
+	“type”: “light”,
+	“origin”: [60, 120, -60],
+	“color”: [255, 255, 255],
+	“intensity”: 20000
+},
+{
+	“type”: “light”,
+	“origin”: [200, 200, -20],
+	“color”: [255, 255, 255],
+	“intensity”: 60000
+},
+{
+	“type”: “light”,
+	“origin”: [800, 600, 500],
+	“color”: [255, 255, 255],
+	“intensity”: 800000
+}
+]
+}
