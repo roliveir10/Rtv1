@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 16:57:22 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/18 01:02:23 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,6 @@ int				main(int argc, char **argv)
 	env.form[7].angle = 180 / M_PI;
 	rt_attribute_color(0xFF5555, &env.form[7].color);
 */
-//	rt_main(&env);
+	//rt_main(env);
 	return (0);
 }

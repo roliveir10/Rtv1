@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_field_camera.c                                :+:      :+:    :+:   */
+/*   pars_field_light.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 16:20:16 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 00:46:52 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/17 20:35:34 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/18 00:46:41 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include "libft.h"
 
-static int		pars_select_field(t_token **token, t_env *env)
+static int		pars_select_field(t_token **token, t_lum *light)
 {
 	char		*word;
 
@@ -25,28 +25,28 @@ static int		pars_select_field(t_token **token, t_env *env)
 	if (!(*token = (*token)->next))
 		return (1);
 	if (!ft_strcmp(word, "\"origin\""))
-		env->cam.pos = pars_vector(token);
-	else if (!ft_strcmp(word, "\"vect_n\""))
-		env->cam.vec_dir[0] = pars_vector(token);
+		light->pos = pars_vector(token);
+	else if (!ft_strcmp(word, "\"color\""))
+		light->color = pars_vector(token);
 	else
 	{
 		ft_putstr_fd("rt: invalid field: ", 2);
 		ft_putstr_fd(word, 2);
-		ft_putstr_fd(" in type `camera'\n", 2);
+		ft_putstr_fd(" in type `light'\n", 2);
 		return (1);
 	}
 	return (0);
 }
 
-int				pars_field_camera(t_token **token, t_env *env)
+int				pars_field_light(t_token **token, t_lum *light)
 {
 	if ((*token)->type != NAMES)
 	{
-		ft_putstr_fd("rt: wrong format for camera definition\n", 2);
+		ft_putstr_fd("rt: wrong format for light definition\n", 2);
 		return (1);
 	}
 	ft_putstr((*token)->word);ft_putstr(": found this: ");
-	if (pars_select_field(token, env))
+	if (pars_select_field(token, light))
 		return (1);
 	return (0);
 }

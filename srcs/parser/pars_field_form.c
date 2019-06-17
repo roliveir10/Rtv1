@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_field_camera.c                                :+:      :+:    :+:   */
+/*   pars_field_form.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 16:20:16 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 00:46:52 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/18 00:46:28 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include "libft.h"
 
-static int		pars_select_field(t_token **token, t_env *env)
+static int		pars_select_field(t_token **token, t_form *form)
 {
 	char		*word;
 
@@ -25,28 +25,38 @@ static int		pars_select_field(t_token **token, t_env *env)
 	if (!(*token = (*token)->next))
 		return (1);
 	if (!ft_strcmp(word, "\"origin\""))
-		env->cam.pos = pars_vector(token);
-	else if (!ft_strcmp(word, "\"vect_n\""))
-		env->cam.vec_dir[0] = pars_vector(token);
+		form->center = pars_vector(token);
+	else if (!ft_strcmp(word, "\"color\""))
+		form->color = pars_vector(token);
+	else if (!ft_strcmp(word, "\"rayon\""))
+		form->r = pars_double(token);
+	else if (!ft_strcmp(word, "\"height\""))
+		form->h = pars_double(token);
+	else if (!ft_strcmp(word, "\"angle\""))
+		form->angle = pars_double(token);
+	else if (!ft_strcmp(word, "\"rotation\""))
+		form->rotationo = pars_vector(token);
+	else if (!ft_strcmp(word, "\"name\""))
+		form->ftype = pars_name(token);
 	else
 	{
 		ft_putstr_fd("rt: invalid field: ", 2);
 		ft_putstr_fd(word, 2);
-		ft_putstr_fd(" in type `camera'\n", 2);
+		ft_putstr_fd(" in type `light'\n", 2);
 		return (1);
 	}
 	return (0);
 }
 
-int				pars_field_camera(t_token **token, t_env *env)
+int				pars_field_form(t_token **token, t_form *form)
 {
 	if ((*token)->type != NAMES)
 	{
-		ft_putstr_fd("rt: wrong format for camera definition\n", 2);
+		ft_putstr_fd("rt: wrong format for form definition\n", 2);
 		return (1);
 	}
 	ft_putstr((*token)->word);ft_putstr(": found this: ");
-	if (pars_select_field(token, env))
+	if (pars_select_field(token, form))
 		return (1);
 	return (0);
 }

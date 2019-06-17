@@ -6,52 +6,147 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/17 16:57:16 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/18 00:19:15 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include "libft.h"
 
-int		pars_camera(t_token *token, t_env *env)
+int		pars_camera(t_token **token, t_env *env)
 {
-
-	token = token->next;
-	if (!(token = token->next))
+	ft_putstr(" --------- camera ----------\n");
+	*token = (*token)->next;
+	if (!(*token = (*token)->next))
 		return (-1);
-	if (token->type == BRAO)
+	if ((*token)->type == BRAO)
 	{
 		ft_putstr_fd("rt: Only one camera expected, remove lst\n", 2);
 		return (-1);
 	}
-	if (pars_field_camera(token, env))
+	*token = (*token)->next;
+	while (pars_field_camera(token, env) != -1)
+	{
+		if (!(*token) || (*token)->type != ENDED)
+			break ;
+		*token = (*token)->next;
+	}
+	if (*token)
+		*token = (*token)->next;
+	return (1);
+}
+
+t_form		pars_one_form(t_token **token)
+{
+	t_form	form;
+
+	ft_bzero(&form, sizeof(t_form));
+	*token = (*token)->next;
+	while (pars_field_form(token, &form) != -1)
+	{
+		if (!(*token) || (*token)->type != ENDED)
+			break ;
+		*token = (*token)->next;
+	}
+	if (*token)
+		*token = (*token)->next;
+	return (form);
+}
+
+int		pars_object(t_token **token, t_env *env)
+{
+	int			ret;
+	t_form		form;
+	t_lstform	*lstform;
+	
+	lstform = NULL;
+	ft_putstr(" --------- object ----------\n");
+	*token = (*token)->next;
+	if (!(*token = (*token)->next))
 		return (-1);
-	return (0);
+	if ((*token)->type == BRAO)
+	{
+		*token = (*token)->next;
+		ret = 1;
+		while (ret)
+		{
+			form = pars_one_form(token);
+			add_form(&lstform, form);
+			if (!(*token) || (*token)->type != ENDED)
+				ret = 0;
+			else
+				*token = (*token)->next;
+		}
+		*token = (*token)->next;
+	}
+	else
+		pars_one_form(token);
+	env->nbr_form = size_lst_form(lstform);
+	env->form = lstform_to_form(lstform, env->nbr_form);
+	return (1);
 }
 
-int		pars_object(t_token *token, t_env *env)
+t_lum	pars_one_light(t_token **token)
 {
-	(void)token;(void)env;
-	return (0);
+	t_lum	light;
+
+	ft_bzero(&light, sizeof(t_lum));
+	*token = (*token)->next;
+	while (pars_field_light(token, &light) != -1)
+	{
+		if (!(*token) || (*token)->type != ENDED)
+			break ;
+		*token = (*token)->next;
+	}
+	if (*token)
+		*token = (*token)->next;
+	return (light);
 }
 
-int		pars_light(t_token *token, t_env *env)
+int		pars_light(t_token **token, t_env *env)
 {
-	(void)token;(void)env;
-	return (0);
+	int			ret;
+	t_lum		light;
+	t_lstlum	*lstlum;
+	
+	lstlum = NULL;
+	ft_putstr(" --------- lighting ----------\n");
+	*token = (*token)->next;
+	if (!(*token = (*token)->next))
+		return (-1);
+	if ((*token)->type == BRAO)
+	{
+		*token = (*token)->next;
+		ret = 1;
+		while (ret)
+		{
+			light = pars_one_light(token);
+			add_light(&lstlum, light);
+			if (!(*token) || (*token)->type != ENDED)
+				ret = 0;
+			else
+				*token = (*token)->next;
+		}
+		*token = (*token)->next;
+	}
+	else
+		pars_one_light(token);
+	env->nbr_lum = size_lst(lstlum);
+	env->lum = lstlum_to_lum(lstlum, env->nbr_lum);
+	return (1);
 }
 
-int		pars_type(t_token *token, t_env *env)
+int		pars_type(t_token **token, t_env *env)
 {
 	int				k;
 	static char		*types[NB_TYPES] = {"\"camera\"", "\"object\"",
 		"\"light\""};
-	static int		(*fct_pars[NB_TYPES])(t_token*, t_env*) = {
+	static int		(*fct_pars[NB_TYPES])(t_token**, t_env*) = {
 		pars_camera, pars_object, pars_light};
 
 	k = -1;
 	while (++k < NB_TYPES)
-		if (!ft_strcmp(types[k], token->word))
+		if (!ft_strcmp(types[k], (*token)->word))
 			return ((fct_pars[k])(token, env));
 	return (-1);
 }

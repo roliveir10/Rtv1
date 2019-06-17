@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:19:39 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/18 01:02:12 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ typedef enum			e_ftype
 	SPHERE,
 	PLAN,
 	CYLINDRE,
-	CONE
+	CONE,
+	NOTAFORM
 }						t_ftype;
 
 typedef struct			s_form
@@ -103,12 +104,13 @@ typedef struct			s_form
 	t_ftype				ftype;
 	t_vector			center;
 	t_vector			point;
+	t_vector			direct;
 	double				r;
 	double				h;
 	double				angle;
 	t_vector			color;
 	double				rotation[3];
-	char				out;
+	t_vector			rotationo;
 }						t_form;
 
 typedef struct			s_env
