@@ -6,14 +6,14 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:19:27 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/17 05:21:37 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include <math.h>
 #include "rt.h"
-/*
+
 static void		pars_fill_cam(t_cam *cam)
 {
 	t_vector		vx;
@@ -37,16 +37,17 @@ static void		pars_fill_cam(t_cam *cam)
 	cam->vp_upleft.x = cam->pos.x + vz.x + vy.x - vx.x;
 	cam->vp_upleft.y = cam->pos.y + vz.y + vy.y - vx.y;
 	cam->vp_upleft.z = cam->pos.z + vz.z + vy.z - vx.z;
-}*/
+}
 
 int				main(int argc, char **argv)
 {
-	t_env		*env;
+	t_env		env;
 
+	(void)argv;
 	if (argc != 2)
 	{
-		ft_putstr_fd("rtv1: usge\n", 2);
-		return (1);
+//		ft_putstr_fd("rtv1: usge\n", 2);
+//		return (1);
 	}
 //	env = pars_file(argv[1]);
 	
