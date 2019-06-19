@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 21:28:14 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 10:05:05 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 11:00:11 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_vector				rt_light_manager(t_env *env, t_inter inter)
 			if (env->lum[i].type == LCAST)
 				inter.lightdir = env->lum[i].pos;
 			else
-				inter.lightdir = ray.dir;
+				inter.lightdir = rt_get_vector(inter.pos, env->lum[i].pos);
 			color = rt_vadd(rt_get_color(env->lum[i], inter, env->form[inter.id].material), color);
 		}
 		else
