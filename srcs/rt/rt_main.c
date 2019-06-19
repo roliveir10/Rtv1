@@ -6,12 +6,23 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:57:56 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 00:36:56 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 08:48:42 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "rt.h"
 #include "mlx.h"
+
+void				rt_delenv(t_env *env)
+{
+	mlx_destroy_image(env->mlx.mlx, env->mlx.image);
+	if (env->form)
+		ft_memdel((void**)&env->form);
+	if (env->lum)
+		ft_memdel((void**)&env->lum);
+	exit(1);
+}
 
 static void			rt_initmlx(t_env *env)
 {

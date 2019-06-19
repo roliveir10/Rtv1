@@ -6,10 +6,11 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 10:42:05 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 07:08:09 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 08:27:29 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "rt.h"
 
 t_vector		rt_get_vecdir(t_cam cam, int x, int y)
@@ -27,28 +28,23 @@ t_vector		rt_get_vecdir(t_cam cam, int x, int y)
 
 t_vector		rt_get_posinter(t_ray ray, double dist)
 {
-	t_vector	inter;
-
-	inter.x = ray.o.x + ray.dir.x * dist;
-	inter.y = ray.o.y + ray.dir.y * dist;
-	inter.z = ray.o.z + ray.dir.z * dist;
-	return (inter);
+	return (rt_vadd(ray.o, rt_vmul(ray.dir, dist)));
 }
 
-t_vector		rt_get_vector(t_vector pos, t_vector inter)
+t_vector		rt_get_vector(t_vector va, t_vector vb)
 {
-	t_vector	vector;
-
-	vector.x = inter.x - pos.x;
-	vector.y = inter.y - pos.y;
-	vector.z = inter.z - pos.z;
-	return (rt_normalize(vector));
+	return (rt_normalize(rt_vsub(vb, va)));
 }
 
 double			rt_dot(t_vector va, t_vector vb)
 {
-	double		dp;
+	return (va.x * vb.x + va.y * vb.y + va.z * vb.z);
+}
 
-	dp = va.x * vb.x + va.y * vb.y + va.z * vb.z;
-	return (dp);
+double			rt_dist(t_vector va, t_vector vb)
+{
+	t_vector	vc;
+
+	vc = rt_vsub(va, vb);
+	return (sqrt(pow(vc.x, 2) + pow(vc.y, 2) + pow(vc.z, 2)));
 }

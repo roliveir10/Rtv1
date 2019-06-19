@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:07 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/18 03:57:48 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 08:51:33 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,13 @@ static double			rt_clamp(double value, double lo, double hi)
 
 static void				rt_add_pixel(t_env *env, t_vector color, int pos)
 {
-	int					sline;
-	unsigned char		r;
-	unsigned char		g;
-	unsigned char		b;
+	unsigned char		rgb[3];
 	unsigned int		color_rgb;
 
-	sline = env->mlx.size_line;
-	r = (unsigned char)(rt_clamp(pow(color.x, .454545), 0, 1) * 255);
-	g = (unsigned char)(rt_clamp(pow(color.y, .454545), 0, 1) * 255);
-	b = (unsigned char)(rt_clamp(pow(color.z, .454545), 0, 1) * 255);
-	color_rgb = (r << 16) | (g << 8) | b;
+	rgb[0] = (unsigned char)(rt_clamp(pow(color.x, .454545), 0, 1) * 255);
+	rgb[1] = (unsigned char)(rt_clamp(pow(color.y, .454545), 0, 1) * 255);
+	rgb[2] = (unsigned char)(rt_clamp(pow(color.z, .454545), 0, 1) * 255);
+	color_rgb = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 	env->mlx.mem_image[pos] = color_rgb;
 }
 
@@ -57,7 +53,7 @@ static void					*rt_print_line(void *env)
 	{
 		ray.dir = rt_get_vecdir(((t_env*)env)->cam, pos % SCREENX,
 				pos / SCREENX);
-		color = rt_browse_form((t_env*)env, ray);
+		color = rt_viewdir_inter((t_env*)env, ray);
 		rt_add_pixel((t_env*)env, color, pos);
 		pos++;
 	}

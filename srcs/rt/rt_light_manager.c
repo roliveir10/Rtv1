@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 21:28:14 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 07:08:11 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:05:05 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_vector				rt_light_manager(t_env *env, t_inter inter)
 //	double			angle;
 	t_ray			ray;
 	t_vector		color;
-	static double		(*func[NBR_FORM])(t_ray, t_form) = {
-		rt_sphere, rt_plan, rt_cylindre, rt_cone};
 	double			dist;
 
 	i = -1;
@@ -45,8 +43,7 @@ t_vector				rt_light_manager(t_env *env, t_inter inter)
 		{
 			ray.o = inter.pos;
 			ray.dir = rt_get_vector(ray.o, env->lum[i].pos);
-			rt_set_ref(&ray, env->form[j]);
-			if ((dist = func[env->form[j].ftype](ray, env->form[j])) > 0)
+			if ((dist = rt_getinter(env->form[j].ftype, &ray, env->form[j])) > 0)
 			{
 				rt_reset_point(env->form[j], &ray.o);
 				if (!rt_compare_dist(ray.o, env->lum[i].pos, dist))

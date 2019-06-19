@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 07:07:59 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:05:42 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,6 @@ int				main(int argc, char **argv)
 	env.lum[1].linear = 0.35;
 	env.lum[1].quadratic = 0.44;
 	rt_attribute_color(0xFF0000, &env.lum[1].color);
-
-/*
-	env.lum[1].pos.x = 0;
-	env.lum[1].pos.y = 1;
-	env.lum[1].pos.z = 0;
-	env.lum[1].type = LCAST;
-	env.lum[1].constant = 1;
-	env.lum[1].linear = 0.014;
-	env.lum[1].quadratic = 0.0007;
-	rt_attribute_color(0xcc5500, &env.lum[1].color);*/
 
 
 	env.form[0].ftype = SPHERE;

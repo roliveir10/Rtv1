@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 03:18:57 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 08:54:36 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void		rt_set_ref(t_ray *ray, t_form form)
 	int		i;
 
 	i = -1;
-	ray->o.x -= form.center.x;
-	ray->o.y -= form.center.y;
-	ray->o.z -= form.center.z;
+	ray->o = rt_vsub(ray->o, form.center);
 	while (++i < 3)
 	{
 		rt_vect_rotation(&ray->dir, form.mat[i]);
@@ -47,7 +45,5 @@ void		rt_reset_point(t_form form, t_vector *inte)
 	i = 3;
 	while (--i + 1)
 		rt_vect_rotation(inte, form.mati[i]);
-	inte->x += form.center.x;
-	inte->y += form.center.y;
-	inte->z += form.center.z;
+	*inte = rt_vadd(*inte, form.center);
 }

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 07:08:05 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 10:05:11 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define NBR_FORM 4
 # define NBR_THREAD 1
 # define NBR_MATERIAL 1
+# define NBR_KEY 1
 # define BLINN 0
 
 /*
@@ -161,13 +162,13 @@ typedef struct			s_env
 }						t_env;
 
 int						rt_main(t_env *env);
-int						rt_delenv(t_env *env);
+void					rt_delenv(t_env *env);
 
 /*
 **	shapes
 */
 
-t_vector				rt_browse_form(t_env *env, t_ray ray);
+t_vector				rt_viewdir_inter(t_env *env, t_ray ray);
 double					rt_sphere(t_ray ray, t_form form);
 double					rt_plan(t_ray ray, t_form form);
 double					rt_cylindre(t_ray ray, t_form form);
@@ -201,11 +202,13 @@ t_vector				rt_get_ambient_only(t_lum lum, t_material mat,
 
 t_vector				rt_get_vecdir(t_cam cam, int x, int y);
 t_vector				rt_get_posinter(t_ray ray, double dist);
-t_vector				rt_get_vector(t_vector pos, t_vector inter);
-t_vector				rt_get_normal(t_vector inter, t_form form);
-t_vector				rt_normalize(t_vector vector);
+t_vector				rt_get_vector(t_vector va, t_vector vb);
+t_vector				rt_get_normal(t_vector v, t_form form);
+t_vector				rt_normalize(t_vector v);
 double					rt_dot(t_vector va, t_vector vb);
+double					rt_dist(t_vector va, t_vector vb);
 double					rt_resolv_nd_degre(double a, double b, double c);
+double					rt_getinter(t_ftype ftype, t_ray *ray, t_form form);
 
 /*
 **	operations
