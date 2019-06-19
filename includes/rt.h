@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/18 01:02:12 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:06:45 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ typedef enum			e_key
 {
 	KESCAP = 53
 }						t_key;
+
+typedef enum			e_ltype
+{
+	LSPOT,
+	LCAST,
+	LPOINT
+}						t_ltype;
 
 typedef struct			s_mlx
 {
@@ -63,7 +70,12 @@ typedef struct			s_inter
 typedef struct			s_lum
 {
 	t_vector			pos;
+	t_vector			dir;
 	t_vector			color;
+	t_ltype				type;
+	double				constant;
+	double				linear;
+	double				quadratic;
 }						t_lum;
 
 typedef	struct			s_ray
@@ -99,6 +111,14 @@ typedef enum			e_ftype
 	NOTAFORM
 }						t_ftype;
 
+typedef struct			s_material
+{
+	t_vector			ambient;
+	t_vector			diffuse;
+	t_vector			specular;
+	float				shininess;
+}						t_material; 
+
 typedef struct			s_form
 {
 	t_ftype				ftype;
@@ -110,6 +130,7 @@ typedef struct			s_form
 	double				angle;
 	t_vector			color;
 	double				rotation[3];
+	t_material			material;
 	t_vector			rotationo;
 }						t_form;
 

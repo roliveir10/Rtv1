@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_elmt.c                                       :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/17 18:05:35 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 15:11:38 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/19 15:14:23 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/19 15:33:37 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
 #include "libft.h"
-#include <stdio.h>
 
-void		print_vector(t_vector vec)
+double		ft_atod(char *value)
 {
-	printf("vector: (%f, %f, %f)\n", vec.x, vec.y, vec.z);
+	double	div;
+	double	res;
+	int		k;
+	int		sign;
+
+	div = 1.0;
+	res = 0;
+	sign = value[0] == '-' ? -1 : 1;
+	if (value[0] == '-' || value[0] == '+')
+		res++;
+	k = -1;
+	while (ft_isdigit(value[++k]))
+		res = res * 10 + value[k] - '0';
+	if (value[k] == '.')
+		while (ft_isdigit(value[++k]))
+		{
+			div = div / 10.0;
+			res += div * (value[k] - '0');
+		}
+	return (res * sign);
 }

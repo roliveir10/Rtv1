@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:21:37 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/18 17:12:52 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static void		pars_fill_cam(t_cam *cam)
 	vz = rt_vmul(cam->vec_dir[2], cam->vp_dist);
 	vy = rt_vmul(cam->vec_dir[1], cam->vp_height / 2.0);
 	vx = rt_vmul(cam->vec_dir[0], cam->vp_width / 2.0);
-	cam->vp_upleft.x = cam->pos.x + vz.x + vy.x - vx.x;
-	cam->vp_upleft.y = cam->pos.y + vz.y + vy.y - vx.y;
-	cam->vp_upleft.z = cam->pos.z + vz.z + vy.z - vx.z;
+//	cam->vp_upleft.x = cam->pos.x + vz.x + vy.x - vx.x;
+//	cam->vp_upleft.y = cam->pos.y + vz.y + vy.y - vx.y;
+//	cam->vp_upleft.z = cam->pos.z + vz.z + vy.z - vx.z;
 }
 
 int				main(int argc, char **argv)

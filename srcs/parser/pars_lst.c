@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 22:48:56 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 01:02:17 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:18:27 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_lum			*lstlum_to_lum(t_lstlum *lstlum, int size)
 	{
 		lum[j].pos = lstlum->pos;
 		lum[j].color = lstlum->pos;
+		lstlum = lstlum->next;
 	}
 	return (lum);
 }

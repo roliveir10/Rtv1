@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:41:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 01:02:15 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:23:01 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,11 @@ static int		token_next(t_token **token)
 
 double			pars_double(t_token **token)
 {
-	int			k;
 	double		res;
-	char		*value;
-	int			sign;
-	double		div;
 
-	div = 1.0;
-	if (!(value = (*token)->word))
+	if (!((*token)->word))
 		return (0);
-	res = 0;
-	sign = value[0] == '-' ? -1 : 1;
-	if (value[0] == '-' || value[0] == '+')
-		res++;
-	k = -1;
-	while (ft_isdigit(value[++k]))
-		res = res * 10 + value[k] - '0';
-	if (value[k] == '.')
-		while (ft_isdigit(value[++k]))
-		{
-			div = div / 10.0;
-			res += div * (value[k] - '0');
-		}
-	ft_putendl(value);
+	res = ft_atod((*token)->word);
 	return (res);
 }
 
@@ -57,7 +39,6 @@ int				pars_name(t_token **token)
 
 	if (!(name = (*token)->word))
 		return (NOTAFORM);
-	ft_putendl(name);
 	k = -1;
 	while (++k < NBR_FORM)
 		if (!ft_strcmp(name, lst[k]))
@@ -76,15 +57,31 @@ t_vector		pars_vector(t_token **token)
 	ft_bzero(&vect, sizeof(t_vector));
 	if ((*token)->type != BRAO || !(*token = (*token)->next))
 		return (vect);
-	vect.x = ft_atoi((*token)->word);
+	vect.x = ft_atod((*token)->word);
 	if (token_next(token))
 		return (vect);
-	vect.y = ft_atoi((*token)->word);
+	vect.y = ft_atod((*token)->word);
 	if (token_next(token))
 		return (vect);
-	vect.z = ft_atoi((*token)->word);
+	vect.z = ft_atod((*token)->word);
 	if (!(*token = (*token)->next))
 		return (vect);
-	print_vector(vect);
+	return (vect);
+}
+
+t_vector		pars_vector_color(t_token **token)
+{
+	t_vector	vect;
+
+	vect = pars_vector(token);
+	vect.x = vect.x / 255.0;
+	if (vect.x > 1.0)
+		vect.x = 1;
+	vect.y = vect.y / 255.0;
+	if (vect.y > 1.0)
+		vect.y = 1;
+	vect.z = vect.z / 255.0;
+	if (vect.z > 1.0)
+		vect.z = 1;
 	return (vect);
 }

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 23:39:23 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 00:43:47 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:48:30 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_form			*lstform_to_form(t_lstform *lstform, int size)
 		return (NULL);
 	j = -1;
 	while (++j < size)
+	{
 		form[j] = lstform->form;
+		lstform = lstform->next;
+	}
 	return (form);
 }
 

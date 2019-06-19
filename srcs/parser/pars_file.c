@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:58:22 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/17 20:10:28 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 13:12:14 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	token_up(int fd, t_token *token, char **str)
 	return (0);
 }
 
-t_env		*pars_file(char *str)
+int			pars_file(char *str, t_env *env)
 {
 	int		fd;
 	t_token	*token;
@@ -56,16 +56,17 @@ t_env		*pars_file(char *str)
 		ft_putstr_fd("rt: can not open: `", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("' for reading\n", 2);
-		return (NULL);
+		return (1);
 	}
 	if (!(token = lex_init_token(0, NULL)))
-		return (NULL);
+		return (1);
 	rest = NULL;
 	if (token_up(fd, token, &rest))
-		return (NULL);
+		return (1);
 	if (rest)
 		free(rest);
 	print_token(token->next);ft_putchar('\n');
 	print_norm(token->next);
-	return (token_to_env(token->next));
+	*env = token_to_env(token->next);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:25:51 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/17 18:35:11 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 14:57:54 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					get_type(char c)
 		if (str[k] == c)
 			return (k);
 	}
-	if (ft_isdigit(c) || c == '-' || c == '+')
+	if (ft_isdigit(c) || c == '-' || c == '+' || c == '.')
 		return (NBRS);
 	else if (ft_strchr(" \t", c))
 		return (SPAC);

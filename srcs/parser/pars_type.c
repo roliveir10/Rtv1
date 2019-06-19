@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 00:19:15 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:23:58 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int		pars_camera(t_token **token, t_env *env)
 {
-	ft_putstr(" --------- camera ----------\n");
 	*token = (*token)->next;
 	if (!(*token = (*token)->next))
 		return (-1);
@@ -60,7 +59,6 @@ int		pars_object(t_token **token, t_env *env)
 	t_lstform	*lstform;
 	
 	lstform = NULL;
-	ft_putstr(" --------- object ----------\n");
 	*token = (*token)->next;
 	if (!(*token = (*token)->next))
 		return (-1);
@@ -110,7 +108,6 @@ int		pars_light(t_token **token, t_env *env)
 	t_lstlum	*lstlum;
 	
 	lstlum = NULL;
-	ft_putstr(" --------- lighting ----------\n");
 	*token = (*token)->next;
 	if (!(*token = (*token)->next))
 		return (-1);

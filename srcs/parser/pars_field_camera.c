@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:20:16 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 00:46:52 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:24:55 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int				pars_field_camera(t_token **token, t_env *env)
 		ft_putstr_fd("rt: wrong format for camera definition\n", 2);
 		return (1);
 	}
-	ft_putstr((*token)->word);ft_putstr(": found this: ");
 	if (pars_select_field(token, env))
 		return (1);
 	return (0);

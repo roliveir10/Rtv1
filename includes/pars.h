@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 01:02:13 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 20:04:13 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,9 @@ typedef struct		s_stat
 	int				val;
 }					t_stat;
 
+double				ft_atod(char *str);
 int					pars_build_line(t_token *tok, char *str, t_stat *st, int k);
-t_env				*pars_file(char *str);
+int					pars_file(char *str, t_env *env);
 int					get_type(char c);
 int					get_next_state(int status, int type);
 int					get_val(int status, int type);
@@ -141,7 +142,7 @@ t_form				*lstform_to_form(t_lstform *lstform, int size);
 **	Parsing tokens
 */
 
-t_env				*token_to_env(t_token *token);
+t_env				token_to_env(t_token *token);
 int					pars_type(t_token **token, t_env *env);
 int					pars_camera(t_token **token, t_env *env);
 int					pars_object(t_token **token, t_env *env);
@@ -152,8 +153,10 @@ int					pars_light(t_token **token, t_env *env);
 */
 
 int					pars_field_light(t_token **token, t_lum *light);
+t_material			pars_material(t_token **token);
 int					pars_field_form(t_token **token, t_form *form);
 int					pars_field_camera(t_token **token, t_env *env);
+t_vector			pars_vector_color(t_token **token);
 t_vector			pars_vector(t_token **token);
 double				pars_double(t_token **token);
 int					pars_name(t_token **token);
@@ -166,6 +169,8 @@ void				print_token(t_token *token);
 void				print_pile(t_pile *pile);
 void				print_norm(t_token *token);
 void				print_vector(t_vector vect);
+void				print_form(t_env env);
+void				print_light(t_env env);
 
 
 #endif

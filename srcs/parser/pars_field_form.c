@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/18 00:46:28 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/19 19:06:55 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		pars_select_field(t_token **token, t_form *form)
 	if (!ft_strcmp(word, "\"origin\""))
 		form->center = pars_vector(token);
 	else if (!ft_strcmp(word, "\"color\""))
-		form->color = pars_vector(token);
+		form->color = pars_vector_color(token);
 	else if (!ft_strcmp(word, "\"rayon\""))
 		form->r = pars_double(token);
 	else if (!ft_strcmp(word, "\"height\""))
@@ -38,11 +38,15 @@ static int		pars_select_field(t_token **token, t_form *form)
 		form->rotationo = pars_vector(token);
 	else if (!ft_strcmp(word, "\"name\""))
 		form->ftype = pars_name(token);
+	else if (!ft_strcmp(word, "\"direct\""))
+		form->direct = pars_vector(token);
+	else if (!ft_strcmp(word, "\"material\""))
+		form->material = pars_material(token);
 	else
 	{
 		ft_putstr_fd("rt: invalid field: ", 2);
 		ft_putstr_fd(word, 2);
-		ft_putstr_fd(" in type `light'\n", 2);
+		ft_putstr_fd(" in type `form'\n", 2);
 		return (1);
 	}
 	return (0);
@@ -53,10 +57,9 @@ int				pars_field_form(t_token **token, t_form *form)
 	if ((*token)->type != NAMES)
 	{
 		ft_putstr_fd("rt: wrong format for form definition\n", 2);
-		return (1);
+		return (-1);
 	}
-	ft_putstr((*token)->word);ft_putstr(": found this: ");
 	if (pars_select_field(token, form))
-		return (1);
+		return (-1);
 	return (0);
 }
