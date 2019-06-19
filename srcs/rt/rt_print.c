@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:07 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:13:56 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/18 03:57:48 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void					*rt_print_line(void *env)
 	ray.o = ((t_env*)env)->cam.pos;
 	while (pos < limit)
 	{
-		ray.dir = rt_get_vecdir(((t_env*)env)->cam, pos % SCREENX, pos / SCREENX);
+		ray.dir = rt_get_vecdir(((t_env*)env)->cam, pos % SCREENX,
+				pos / SCREENX);
 		color = rt_browse_form((t_env*)env, ray);
 		rt_add_pixel((t_env*)env, color, pos);
 		pos++;

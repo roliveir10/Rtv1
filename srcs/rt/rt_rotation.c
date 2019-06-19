@@ -6,46 +6,17 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:14:00 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 03:18:57 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "rt.h"
 
-static void		rt_fill_matrot(double (*mat)[3][3][3], double dteta)
+void		rt_vect_rotation(t_vector *vec, double mat[3][3])
 {
-	double		mcos;
-	double		msin;
-	double		teta;
-
-	teta = dteta * M_PI / 180.0;
-	mcos = cos(teta);
-	msin = sin(teta);
-	ft_bzero(mat, sizeof(double) * 27);
-	(*mat)[0][0][0] = 1.0;
-	(*mat)[0][1][1] = mcos;
-	(*mat)[0][1][2] = -msin;
-	(*mat)[0][2][1] = msin;
-	(*mat)[0][2][2] = mcos;
-
-	(*mat)[1][0][0] = mcos;
-	(*mat)[1][0][2] = msin;
-	(*mat)[1][1][1] = 1.0;
-	(*mat)[1][2][0] = -msin;
-	(*mat)[1][2][2] = mcos;
-
-	(*mat)[2][0][0] = mcos;
-	(*mat)[2][0][1] = -msin;
-	(*mat)[2][1][0] = msin;
-	(*mat)[2][1][1] = mcos;
-	(*mat)[2][2][2] = 1.0;
-}
-
-void				rt_vect_rotation(t_vector *vec, double mat[3][3])
-{
-	double			tmpx;
-	double			tmpy;
+	double	tmpx;
+	double	tmpy;
 
 	tmpx = vec->x;
 	tmpy = vec->y;
@@ -54,11 +25,9 @@ void				rt_vect_rotation(t_vector *vec, double mat[3][3])
 	vec->z = mat[2][0] * tmpx + mat[2][1] * tmpy + mat[2][2] * vec->z;
 }
 
-void				rt_set_ref(t_ray *ray, t_form form)
+void		rt_set_ref(t_ray *ray, t_form form)
 {
-	int				i;
-	int				j;
-	double			mat[3][3][3];
+	int		i;
 
 	i = -1;
 	ray->o.x -= form.center.x;
@@ -66,24 +35,18 @@ void				rt_set_ref(t_ray *ray, t_form form)
 	ray->o.z -= form.center.z;
 	while (++i < 3)
 	{
-		j = -1;
-		rt_fill_matrot(&mat, -form.rotation[i]);
-		while (++j < 3)
-			rt_vect_rotation(&ray->dir, mat[i]);
+		rt_vect_rotation(&ray->dir, form.mat[i]);
+		rt_vect_rotation(&ray->o, form.mat[i]);
 	}
 }
 
-void				rt_reset_point(t_form form, t_vector *inte)
+void		rt_reset_point(t_form form, t_vector *inte)
 {
-	int				i;
-	double			mat[3][3][3];
+	int		i;
 
 	i = 3;
 	while (--i + 1)
-	{
-		rt_fill_matrot(&mat, form.rotation[i]);
-		rt_vect_rotation(inte, mat[i]);
-	}
+		rt_vect_rotation(inte, form.mati[i]);
 	inte->x += form.center.x;
 	inte->y += form.center.y;
 	inte->z += form.center.z;

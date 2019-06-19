@@ -6,81 +6,68 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 21:28:14 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:14:02 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/19 07:08:11 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "rt.h"
 
-/*static void			rt_shadow_acne(t_inter *inter)
-{
-	float			offset;
-
-	offset = 1e-3;
-	inter->pos.x += inter->norm.x * offset;
-	inter->pos.y += inter->norm.y * offset;
-	inter->pos.z += inter->norm.z * offset;
-}
-
-static int			rt_compare_dist(t_vector inte, t_vector va, t_vector vb)
+static int			rt_compare_dist(t_vector inte, t_vector va, double dist)
 {
 	t_vector		v_lum;
-	t_vector		v_inter;
-	double			a;
-	double			b;
+	double			d_lum;
 
-	v_lum = rt_get_vector_dist(inte, va);
-	v_inter = rt_vsub(inte, vb);
-	a = sqrt(pow(v_lum.x, 2) + pow(v_lum.y, 2) + pow(v_lum.z, 2));
-	b = sqrt(pow(v_inter.x, 2) + pow(v_inter.y, 2) + pow(v_inter.z, 2));
-	if (a < b)
+	v_lum = rt_vsub(va, inte);
+	d_lum = sqrt(pow(v_lum.x, 2) + pow(v_lum.y, 2) + pow(v_lum.z, 2));
+	if (d_lum < dist)
 		return (1);
 	return (0);
 }
 
-static int			rt_get_way_to_light(t_env *env, int j, t_ray ray)
-{
-	static void		(*func[NBR_FORM])(t_ray, t_form, t_inter*) = {
-		rt_sphere, rt_plan, rt_cylindre, rt_cone};
-	int				i;
-	t_ray			ray_tmp;
-
-	i = -1;
-	while (++i < env->nbr_form)
-	{
-		ray_tmp = ray;
-		rt_set_ref(&ray_tmp, env->form[i]);
-		func[env->form[i].ftype](ray_tmp, env->form[i], &env->inter[i]);
-		if (!env->inter[j].out && !rt_compare_dist(ray_tmp.o, env->lum[j].pos,
-				env->inter[j].pos))
-			break ;
-	}
-	return (i);
-}
-*/
 t_vector				rt_light_manager(t_env *env, t_inter inter)
 {
-/*	int				i;
+	int				i;
 	int				j;
-	double			angle;
+//	double			angle;
 	t_ray			ray;
-	t_vector		color;*/
+	t_vector		color;
+	static double		(*func[NBR_FORM])(t_ray, t_form) = {
+		rt_sphere, rt_plan, rt_cylindre, rt_cone};
+	double			dist;
 
-	(void)env;
-	return (inter.norm);
-	/*rt_shadow_acne(&env->inter[index]);
-	ft_bzero(&color, sizeof(t_vector));
 	i = -1;
+	ft_bzero(&color, sizeof(t_vector));
 	while (++i < env->nbr_lum)
 	{
-		ray.o = env->inter[index].pos;
-		ray.dir = rt_get_vector(ray.o, env->lum[i].pos);
-		if ((j = rt_get_way_to_light(env, i, ray)) == env->nbr_form)
+		j = -1;
+		while (++j < env->nbr_form)
 		{
-			angle = rt_dot_product(env->inter[index].norm, ray.dir);
-			color = rt_vadd(rt_get_color(env, i, index, angle), color);
+			ray.o = inter.pos;
+			ray.dir = rt_get_vector(ray.o, env->lum[i].pos);
+			rt_set_ref(&ray, env->form[j]);
+			if ((dist = func[env->form[j].ftype](ray, env->form[j])) > 0)
+			{
+				rt_reset_point(env->form[j], &ray.o);
+				if (!rt_compare_dist(ray.o, env->lum[i].pos, dist))
+					break ;
+			}
 		}
+		if (j == env->nbr_form)
+		{
+		/*	if (env->lum[i].type == LCAST)
+				angle = rt_dot(inter.norm, env->lum[i].pos);
+			else
+				angle = rt_dot(inter.norm, ray.dir);*/
+			//ray dir a remettre dans la base monde ?
+			if (env->lum[i].type == LCAST)
+				inter.lightdir = env->lum[i].pos;
+			else
+				inter.lightdir = ray.dir;
+			color = rt_vadd(rt_get_color(env->lum[i], inter, env->form[inter.id].material), color);
+		}
+		else
+			color = rt_vadd(rt_get_ambient_only(env->lum[i], env->form[inter.id].material, inter), color);
 	}
-	return (color);*/
+	return (color);
 }

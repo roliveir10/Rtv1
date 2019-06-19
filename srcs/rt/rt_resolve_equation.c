@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 12:58:43 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 05:05:13 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/18 00:19:12 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ double			rt_resolv_nd_degre(double a, double b, double c)
 		return (t2);
 	if (t1 > 0 && t2 <= 0)
 		return (t1);
+	if (t1 < 0 && t2 < 0)
+		return (-1);
 	return (t1 > t2 ? t2 : t1);
 }

@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/28 01:21:35 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/16 11:42:43 by oboutrol         ###   ########.fr        #
+#    Updated: 2019/06/18 22:10:42 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ NAME = rt
 OBJS = $(subst .c,.o,$(subst ./srcs/,./$(OBJDIR)/,$(SRCS)))
 DEPS = $(subst .c,.d,$(subst ./srcs/,./$(OBJDIR)/,$(SRCS)))
 
-all: lib_rule mlx_rule $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): lib_rule mlx_rule $(OBJS)
 	@$(RM) tmp_log
 	@$(RM) tmp_errors
 	@if  [ -e files_missing ]; then \
@@ -90,6 +90,5 @@ mlx_rule:
 norm:
 	@norminette srcs/ includes/
 
-.NOTPARALLEL:
 .PHONY: lib_rule all clean fclean re re_nolib fclean_nolib
 -include $(DEPS)
