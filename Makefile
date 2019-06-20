@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/28 01:21:35 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/18 22:10:42 by roliveir         ###   ########.fr        #
+#    Updated: 2019/06/20 02:07:24 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CPPFLAGS += -MMD -MP
 OBJDIR = .o
 UNAME = $(shell uname)
 
-NAME = rt
+NAME = rtv1
 
 OBJS = $(subst .c,.o,$(subst ./srcs/,./$(OBJDIR)/,$(SRCS)))
 DEPS = $(subst .c,.d,$(subst ./srcs/,./$(OBJDIR)/,$(SRCS)))

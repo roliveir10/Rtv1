@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:57:56 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 08:48:42 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 04:57:31 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,24 @@ static void			rt_initmlx(t_env *env)
 			&env->mlx.pix, &env->mlx.size_line, &env->mlx.endian);
 }
 
+static int			rt_expose(void *param)
+{
+	t_env			*env;
+
+	env = (void*)param;
+	mlx_put_image_to_window(env->mlx.mlx, env->mlx.id, env->mlx.image, 0, 0);
+	return (0);
+}
+
 int					rt_main(t_env *env)
 {
 	rt_initmlx(env);
-	rt_print(env);
+	rt_update_campos(&env->cam);
 	mlx_hook(env->mlx.id, KEYPRESS, 0, rt_keypress, (void*)env);
 	mlx_hook(env->mlx.id, REDBUTTON, 0, rt_close, (void*)env);
+	mlx_expose_hook(env->mlx.id, rt_expose, (void*)env);
+	mlx_loop_hook(env->mlx.mlx, rt_print, (void*)env);
+	env->offset = 32;
 	mlx_loop(env->mlx.mlx);
 	return (1);
 }

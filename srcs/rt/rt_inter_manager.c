@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:28:08 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 11:00:08 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 02:33:25 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_vector		rt_no_inter(void)
 	return (color_black);
 }
 
-double				rt_getinter(t_ftype ftype, t_ray *ray, t_form form)
+double				rt_inter(t_ftype ftype, t_ray *ray, t_form form)
 {
 	static double	(*func[NBR_FORM])(t_ray, t_form) = {
 		rt_sphere, rt_plan, rt_cylindre, rt_cone};
@@ -43,12 +43,25 @@ static void			rt_getinter_data(t_env *env, t_inter *inter, t_vector vdir)
 	inter->viewdir = vdir;
 }
 
+static int			rt_shape_inter(t_env *env, int *indsh, t_ray *ray,
+		double *min)
+{
+	double			dist;
+
+	dist = rt_inter(env->form[*indsh].ftype, ray, env->form[*indsh]);
+	if (dist > 0 && (dist < *min || *min == -1.0))
+	{
+		*min = dist;
+		return (1);
+	}
+	return (0);
+}
+
 t_vector			rt_viewdir_inter(t_env *env, t_ray ray_orig)
 {
 	int				i;
 	t_ray			ray;
 	t_inter			inter;
-	double			dist;
 	double			min;
 
 	i = -1;
@@ -57,10 +70,8 @@ t_vector			rt_viewdir_inter(t_env *env, t_ray ray_orig)
 	while (++i < env->nbr_form)
 	{
 		ray = ray_orig;
-		dist = rt_getinter(env->form[i].ftype, &ray, env->form[i]);
-		if (dist > 0 && (dist < min || min == -1.0))
+		if (rt_shape_inter(env, &i, &ray, &min))
 		{
-			min = dist;
 			inter.id = i;
 			inter.pos = rt_get_posinter(ray, min);
 		}

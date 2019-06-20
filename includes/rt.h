@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 10:05:11 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 09:45:58 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 # define SCREENY 1170
 
 # define NBR_FORM 4
-# define NBR_THREAD 1
+# define NBR_THREAD 4
 # define NBR_MATERIAL 1
-# define NBR_KEY 1
+# define NBR_KEY 13
 # define BLINN 0
+# define PIX 32
 
 /*
 ** ENUM
@@ -36,7 +37,19 @@ typedef enum			e_event
 
 typedef enum			e_key
 {
-	KESCAP = 53
+	KESCAP = 53,
+	KLEFT = 123,
+	KRIGHT = 124,
+	KFOR = 14,
+	KBACK = 2,
+	KUP = 126,
+	KDOWN = 125,
+	KRXUP = 115,
+	KRXDOWN = 119,
+	KRYRIGHT = 117,
+	KRYLEFT = 121,
+	KRZRIGHT = 264,
+	KRZLEFT = 116
 }						t_key;
 
 typedef enum			e_ftype
@@ -159,6 +172,8 @@ typedef struct			s_env
 	t_form				*form;
 	t_lum				*lum;
 	t_vector			color;
+	int					offset;
+	int					line_id;
 }						t_env;
 
 int						rt_main(t_env *env);
@@ -178,13 +193,20 @@ double					rt_cone(t_ray ray, t_form form);
 **	print
 */
 
-void					rt_print(t_env *env);
+int						rt_print(void *param);
 
 /*
 **	light
 */
 
 t_vector				rt_light_manager(t_env *env, t_inter inter);
+t_vector				rt_spec(t_vector light, t_inter inter,
+		t_material mat, double attenuation);
+t_vector				rt_diffuse(t_vector light, double angle,
+		t_material mat, double attenuation);
+t_vector				rt_ambient(t_vector light, t_material mat,
+		double attenuation);
+double					rt_attenuation(t_lum lum, double dist);
 
 /*
 ** color
@@ -193,7 +215,7 @@ t_vector				rt_light_manager(t_env *env, t_inter inter);
 void					rt_attribute_color(int color, t_vector *s_color);
 t_vector				rt_get_color(t_lum lum, t_inter inter,
 		t_material mat);
-t_vector				rt_get_ambient_only(t_lum lum, t_material mat,
+t_vector				rt_ambient_only(t_lum lum, t_material mat,
 		t_inter inter);
 
 /*
@@ -208,7 +230,7 @@ t_vector				rt_normalize(t_vector v);
 double					rt_dot(t_vector va, t_vector vb);
 double					rt_dist(t_vector va, t_vector vb);
 double					rt_resolv_nd_degre(double a, double b, double c);
-double					rt_getinter(t_ftype ftype, t_ray *ray, t_form form);
+double					rt_inter(t_ftype ftype, t_ray *ray, t_form form);
 
 /*
 **	operations
@@ -227,12 +249,21 @@ int						rt_keypress(int keycode, void *param);
 int						rt_close(void *param);
 
 /*
+**	camera
+*/
+
+void					rt_update_campos(t_cam *cam);
+void					rt_update_camrot(t_cam *cam, double mat[3][3][3]);
+
+/*
 **	rotation
 */
 
 void					rt_set_ref(t_ray *ray, t_form form);
 void					rt_reset_point(t_form form, t_vector *inte);
 void					rt_vect_rotation(t_vector *vec, double mat[3][3]);
+void					rt_fill_matrot(double (*mat)[3][3][3],
+		t_vector rotation);
 
 /*
 **	materials

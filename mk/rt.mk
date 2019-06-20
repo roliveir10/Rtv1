@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 10:06:25 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/19 10:05:13 by roliveir         ###   ########.fr        #
+#    Updated: 2019/06/20 04:16:34 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,11 @@ RT = rt_main.c					\
 	 rt_inter_manager.c			\
 	 rt_vector_operation.c		\
 	 rt_light_manager.c			\
+	 rt_light_utils.c			\
 	 rt_color_manager.c			\
 	 rt_rotation.c				\
-	 rt_material.c
+	 rt_material.c				\
+	 rt_camera.c
 
 RT_SRCS = $(addprefix $(RT_PATH),$(RT))
 SRCS += $(RT_SRCS)

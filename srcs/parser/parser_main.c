@@ -6,15 +6,15 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 11:00:09 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 09:41:02 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
 #include <math.h>
+#include "pars.h"
 #include "rt.h"
 
-static void		rt_fill_matrot(double (*mat)[3][3][3], t_vector rotation)
+void			rt_fill_matrot(double (*mat)[3][3][3], t_vector rotation)
 {
 	double		mcos;
 	double		msin;
@@ -51,27 +51,16 @@ static void		rt_fill_matrot(double (*mat)[3][3][3], t_vector rotation)
 
 static void		pars_fill_cam(t_cam *cam)
 {
-	t_vector		vx;
-	t_vector		vy;
-	t_vector		vz;
-
 	cam->vec_dir[0].x = 1.0;
 	cam->vec_dir[1].y = 1.0;
 	cam->vec_dir[2].z = 1.0;
-	cam->vp_width = 0.64;
-	cam->vp_height = 0.36;
-	cam->vp_dist = 1.0;
+	cam->vp_width = SCREENX;
+	cam->vp_height = SCREENY;
+	cam->vp_dist = 1000;
 
-	cam->pos.x = 0.0;	
+	cam->pos.x = 0.0;
 	cam->pos.y = 0.0;	
 	cam->pos.z = 0.0;	
-
-	vz = rt_vmul(cam->vec_dir[2], cam->vp_dist);
-	vy = rt_vmul(cam->vec_dir[1], cam->vp_height / 2.0);
-	vx = rt_vmul(cam->vec_dir[0], cam->vp_width / 2.0);
-	cam->vp_upleft.x = cam->pos.x + vz.x + vy.x - vx.x;
-	cam->vp_upleft.y = cam->pos.y + vz.y + vy.y - vx.y;
-	cam->vp_upleft.z = cam->pos.z + vz.z + vy.z - vx.z;
 }
 
 int				main(int argc, char **argv)
@@ -90,7 +79,7 @@ int				main(int argc, char **argv)
 	ft_bzero(&env, sizeof(t_env));
 	pars_fill_cam(&env.cam);
 	env.nbr_form = 9;
-	env.nbr_lum = 2;
+	env.nbr_lum = 1;
 	if (!(env.form = (t_form*)ft_memalloc(sizeof(t_form) * env.nbr_form)))
 		rt_delenv(&env);
 	if (!(env.lum = (t_lum*)ft_memalloc(sizeof(t_lum) * env.nbr_lum)))
