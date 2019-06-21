@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:57:56 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 04:57:31 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:44:10 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int			rt_expose(void *param)
 int					rt_main(t_env *env)
 {
 	rt_initmlx(env);
+	rt_initialize_rotation(&env->form);
 	rt_update_campos(&env->cam);
 	mlx_hook(env->mlx.id, KEYPRESS, 0, rt_keypress, (void*)env);
 	mlx_hook(env->mlx.id, REDBUTTON, 0, rt_close, (void*)env);

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 01:04:30 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:18:44 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "pars.h"
 #include "rt.h"
 
-<<<<<<< HEAD
 void			rt_fill_matrot(double (*mat)[3][3][3], t_vector rotation)
 {
 	double		mcos;
@@ -78,11 +77,10 @@ int				main(int argc, char **argv)
 	(void)argv;
 	if (pars_file(argv[1], &env))
 		return (1);
-	ft_bzero(&env.cam, sizeof(t_cam));
 	pars_fill_cam(&env.cam);
 
-//	print_form(env);
-//	print_light(env);
+	print_form(env);
+	print_light(env);
 
 
 //	env.nbr_form = 1;
@@ -226,7 +224,7 @@ int				main(int argc, char **argv)
 	env.form[8].rotation.z = -15;
 	rt_fill_matrot(&env.form[8].mati, env.form[8].rotation);
 	env.form[8].material = rt_get_material(NOTHING, env.scene);
-
+*/
 	rt_main(&env);
 	return (0);
 }

@@ -1,23 +1,23 @@
 {
 	 "camera":
 		 {
-			 "origin":[10,         20, 30],
+			 "origin":[0, 0, 0],
 			 "vect_n":[0, 1, 0]
 		 },
 	 "light":[
 		 {
-			 "origin":[60, 120, -60],
+			 "origin":[10, 0, 50],
 			 "color":[255, 255, 255]
 		 },
 		 {
-			 "origin":[200, 200, -20],
+			 "origin":[-10, 0, 50],
 			 "color":[255, 100, 255]
 		 }],
 		 "object":[
 		 {
 			 "name":"sphere",
-			 "origin":[0, 10, 0],
-			 "rayon":10 ,
+			 "origin":[0, 0, 50],
+			 "rayon":3,
 			 "color":[255, 100, 255]
 		 }]
 }

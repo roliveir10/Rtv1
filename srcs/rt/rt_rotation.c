@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 09:45:52 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:31:13 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,16 @@ void		rt_reset_point(t_form form, t_vector *inte)
 	while (--i + 1)
 		rt_vect_rotation(inte, form.mati[i]);
 	*inte = rt_vadd(*inte, form.center);
+}
+
+void		rt_initialize_rotation(t_form **form)
+{
+	int		i;
+
+	i = -1;
+	while (++i < NBR_FORM)
+	{
+		rt_fill_matrot(&(*form)[i].mat, (*form)[i].rotation);
+		rt_fill_matrot(&(*form)[i].mati, (*form)[i].rotation);
+	}
 }

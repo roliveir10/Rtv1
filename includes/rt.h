@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 01:07:04 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:30:51 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,6 @@ typedef struct			s_cam
 	double				rot_mat[3][3][3];
 }						t_cam;
 
-typedef struct			s_material
-{
-	t_vector			ambient;
-	t_vector			diffuse;
-	t_vector			specular;
-	float				shininess;
-}						t_material; 
-
 typedef struct			s_form
 {
 	t_ftype				ftype;
@@ -269,6 +261,7 @@ void					rt_update_camrot(t_cam *cam, double mat[3][3][3]);
 **	rotation
 */
 
+void					rt_initialize_rotation(t_form **form);
 void					rt_set_ref(t_ray *ray, t_form form);
 void					rt_reset_point(t_form form, t_vector *inte);
 void					rt_vect_rotation(t_vector *vec, double mat[3][3]);

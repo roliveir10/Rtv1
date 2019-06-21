@@ -6,12 +6,14 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 19:06:55 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:44:07 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include "libft.h"
+
+#include <stdio.h>
 
 static int		pars_select_field(t_token **token, t_form *form)
 {
@@ -35,7 +37,7 @@ static int		pars_select_field(t_token **token, t_form *form)
 	else if (!ft_strcmp(word, "\"angle\""))
 		form->angle = pars_double(token);
 	else if (!ft_strcmp(word, "\"rotation\""))
-		form->rotationo = pars_vector(token);
+		form->rotation = pars_vector(token);
 	else if (!ft_strcmp(word, "\"name\""))
 		form->ftype = pars_name(token);
 	else if (!ft_strcmp(word, "\"direct\""))
