@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:07 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 10:47:47 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 00:58:16 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void				*rt_print_line(void *env)
 	((t_env*)env)->line_id += ((t_env*)env)->offset;
 	line = ((t_env*)env)->line_id - ((t_env*)env)->offset;
 	limit = SCREENX * (line + ((t_env*)env)->offset);
+	if (limit >= SCREENX * SCREENY)
+		limit = SCREENX * SCREENY - 1;
 	pos = line * SCREENX + ((t_env*)env)->offset;
 	ray.o = ((t_env*)env)->cam.pos;
 	while (pos < limit)

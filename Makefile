@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/28 01:21:35 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/20 10:42:42 by roliveir         ###   ########.fr        #
+#    Updated: 2019/06/22 00:54:42 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ DEPS = $(subst .c,.d,$(subst ./srcs/,./$(OBJDIR)/,$(SRCS)))
 
 all: $(NAME)
 
-$(NAME): lib_rule mlx_rule $(OBJS)
+$(NAME): $(OBJS) | lib_rule mlx_rule
 	@$(RM) tmp_log
 	@$(RM) tmp_errors
 	@if  [ -e files_missing ]; then \
