@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 10:42:05 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 02:33:23 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:34:44 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,17 @@ double			rt_dot(t_vector va, t_vector vb)
 	return (va.x * vb.x + va.y * vb.y + va.z * vb.z);
 }
 
-double			rt_dist(t_vector va, t_vector vb)
+t_vector		rt_normalize(t_vector vector)
 {
-	t_vector	vc;
+	double		r;
+	t_vector	pos;
 
-	vc = rt_vsub(va, vb);
-	return (sqrt(pow(vc.x, 2) + pow(vc.y, 2) + pow(vc.z, 2)));
+	ft_bzero(&pos, sizeof(t_vector));
+	r = sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
+	if (!r)
+		return (pos);
+	pos.x = vector.x / r;
+	pos.y = vector.y / r;
+	pos.z = vector.z / r;
+	return (pos);
 }

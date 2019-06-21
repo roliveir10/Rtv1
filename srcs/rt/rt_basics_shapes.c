@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 15:17:43 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/19 08:36:21 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:34:08 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ double			rt_resolv_nd_degre(double a, double b, double c)
 	return (t1 > t2 ? t2 : t1);
 }
 
-double		rt_plan(t_ray ray, t_form form)
+double			rt_plan(t_ray ray, t_form form)
 {
-	double	dist;
+	double		dist;
 
 	dist = -(rt_dot(form.point, ray.o)) / rt_dot(form.point, ray.dir);
 	return (dist <= 0 ? -1 : dist);
 }
 
-double		rt_sphere(t_ray ray, t_form form)
+double			rt_sphere(t_ray ray, t_form form)
 {
-	double	a;
-	double	b;
-	double	c;
+	double		a;
+	double		b;
+	double		c;
 
 	a = rt_dot(ray.dir, ray.dir);
 	b = 2 * rt_dot(ray.dir, ray.o);
@@ -73,11 +73,11 @@ double			rt_cylindre(t_ray ray, t_form form)
 	return (dist);
 }
 
-double				rt_cone(t_ray ray, t_form form)
+double			rt_cone(t_ray ray, t_form form)
 {
-	double			a;
-	double			b;
-	double			c;
+	double		a;
+	double		b;
+	double		c;
 
 	(void)form;
 	a = pow(ray.dir.x, 2) + pow(ray.dir.z, 2)

@@ -1,12 +1,12 @@
 *.o
 *.d
 .o
-rt
+rtv1
 *.swp
 .vscode
 libft/libft.a
 a.out
 void
-fdf.dSYM
+rtv1.dSYM
 test
 to_do

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 21:28:14 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 02:35:06 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:33:49 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@ static t_vector		rt_nolight_inter(t_lum lum, t_inter *inter, t_material m)
 static t_vector		rt_light_tocolor(t_env *env, int indsh, int indli,
 		t_inter *inter)
 {
+	t_vector		color;
+
 	if (indsh == env->nbr_form)
-		return (rt_nolight_inter(env->lum[indli], inter,
-					env->form[inter->id].material));
-	return (rt_ambient_only(env->lum[indli], env->form[inter->id].material,
-				*inter));
+		color = rt_nolight_inter(env->lum[indli], inter,
+				env->form[inter->id].material);
+	else
+		color = rt_ambient_only(env->lum[indli],
+				env->form[inter->id].material, *inter);
+	return (color);
 }
 
 static int			rt_light_inter(t_env *env, int indsh, t_ray *ray, int indli)

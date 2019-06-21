@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:07 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 09:45:55 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:47:47 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static void				rt_add_pixel(t_env *env, t_vector color, int pos)
 	}
 }
 
-static void					*rt_print_line(void *env)
+static void				*rt_print_line(void *env)
 {
-	int						line;
-	t_ray					ray;
-	int						pos;
-	int						limit;
-	t_vector				color;
+	int					line;
+	t_ray				ray;
+	int					pos;
+	int					limit;
+	t_vector			color;
 
 	((t_env*)env)->line_id += ((t_env*)env)->offset;
 	line = ((t_env*)env)->line_id - ((t_env*)env)->offset;
@@ -72,11 +72,11 @@ static void					*rt_print_line(void *env)
 	return (env);
 }
 
-int							rt_print(void *env)
+int						rt_print(void *env)
 {
-	int						pos;
-	pthread_t				id[NBR_THREAD];
-	int						i;
+	int					pos;
+	pthread_t			id[NBR_THREAD];
+	int					i;
 
 	if (((t_env*)env)->offset)
 	{
