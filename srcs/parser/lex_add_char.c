@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 15:02:48 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/16 13:54:55 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/18 00:57:33 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void		lex_add_token(char buff[BUFF], t_stat *stat, t_token *token)
 	t_token	*tmp;
 	t_token	*new;
 
-	//ft_putstr(buff);ft_putchar('\n');
 	tmp = token;
 	while (tmp->next)
 		tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 00:59:41 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:04:30 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "pars.h"
 #include "rt.h"
 
+<<<<<<< HEAD
 void			rt_fill_matrot(double (*mat)[3][3][3], t_vector rotation)
 {
 	double		mcos;
@@ -73,16 +74,23 @@ int				main(int argc, char **argv)
 		//		ft_putstr_fd("rtv1: usge\n", 2);
 		//		return (1);
 	}
-	//	env = pars_file(argv[1]);
-
-
 	ft_bzero(&env, sizeof(t_env));
+	(void)argv;
+	if (pars_file(argv[1], &env))
+		return (1);
+	ft_bzero(&env.cam, sizeof(t_cam));
 	pars_fill_cam(&env.cam);
-	env.nbr_form = 9;
-	env.nbr_lum = 1;
-	if (!(env.form = (t_form*)ft_memalloc(sizeof(t_form) * env.nbr_form)))
-		rt_delenv(&env);
-	if (!(env.lum = (t_lum*)ft_memalloc(sizeof(t_lum) * env.nbr_lum)))
+
+//	print_form(env);
+//	print_light(env);
+
+
+//	env.nbr_form = 1;
+//	env.nbr_lum = 3;
+//	if (!(env.form = (t_form*)ft_memalloc(sizeof(t_form) * env.nbr_form)))
+//		rt_delenv(&env);
+/*	if (!(env.lum = (t_lum*)ft_memalloc(sizeof(t_lum) * env.nbr_lum)))
+>>>>>>> lex_pars
 		rt_delenv(&env);
 
 	env.scene.ambient = 0.00;
@@ -115,7 +123,6 @@ int				main(int argc, char **argv)
 	env.lum[1].linear = 0.35;
 	env.lum[1].quadratic = 0.44;
 	rt_attribute_color(0xFF0000, &env.lum[1].color);
-
 
 	env.form[0].ftype = SPHERE;
 	env.form[0].center.z = 50;
@@ -219,7 +226,6 @@ int				main(int argc, char **argv)
 	env.form[8].rotation.z = -15;
 	rt_fill_matrot(&env.form[8].mati, env.form[8].rotation);
 	env.form[8].material = rt_get_material(NOTHING, env.scene);
-
 
 	rt_main(&env);
 	return (0);

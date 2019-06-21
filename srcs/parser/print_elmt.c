@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   print_elmt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/07 13:08:04 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/17 17:11:33 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/17 18:05:35 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/19 15:11:38 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "pars.h"
+#include "libft.h"
 #include <stdio.h>
 
-void			debug_print_pos(t_vector pos)
+void		print_vector(t_vector vec)
 {
-	printf("%f %f %f\n", pos.x, pos.y, pos.z);
-}	
+	printf("vector: (%f, %f, %f)\n", vec.x, vec.y, vec.z);
+}

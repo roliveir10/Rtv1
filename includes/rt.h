@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 09:45:58 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 01:07:04 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef enum			e_ftype
 	SPHERE,
 	PLAN,
 	CYLINDRE,
-	CONE
+	CONE,
+	NOTAFORM
 }						t_ftype;
 
 typedef enum			e_ltype
@@ -140,11 +141,20 @@ typedef struct			s_cam
 	double				rot_mat[3][3][3];
 }						t_cam;
 
+typedef struct			s_material
+{
+	t_vector			ambient;
+	t_vector			diffuse;
+	t_vector			specular;
+	float				shininess;
+}						t_material; 
+
 typedef struct			s_form
 {
 	t_ftype				ftype;
 	t_vector			center;
 	t_vector			point;
+	t_vector			direct;
 	double				r;
 	double				h;
 	double				angle;
