@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 01:30:51 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 00:44:20 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define NBR_FORM 4
 # define NBR_THREAD 4
-# define NBR_MATERIAL 1
+# define NBR_MATERIAL 2
 # define NBR_KEY 13
 # define BLINN 0
 # define PIX 32
@@ -71,6 +71,7 @@ typedef enum			e_ltype
 typedef enum			e_ematerial
 {
 	NOTHING,
+	JADE
 }						t_ematerial;
 
 /*
@@ -261,7 +262,7 @@ void					rt_update_camrot(t_cam *cam, double mat[3][3][3]);
 **	rotation
 */
 
-void					rt_initialize_rotation(t_form **form);
+void					rt_initialize_rotation(t_form **form, int nbr_form);
 void					rt_set_ref(t_ray *ray, t_form form);
 void					rt_reset_point(t_form form, t_vector *inte);
 void					rt_vect_rotation(t_vector *vec, double mat[3][3]);

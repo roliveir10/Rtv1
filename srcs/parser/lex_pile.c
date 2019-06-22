@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 02:01:44 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/16 11:41:02 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/22 21:38:28 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	pile_remove(t_stat *stat)
 		tmp->next = NULL;
 	}
 	stat->status = ENDED;
-	//print_pile(stat->pile);ft_putstr(" -- pile\n");
 	return (0);
 }
 
@@ -64,7 +63,6 @@ void		pile_up(t_stat *stat, int type)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-	//print_pile(stat->pile);ft_putstr(" -- pile\n");
 }
 
 int			pile_down(t_stat *stat, int type)

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 20:04:13 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/22 19:03:07 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ typedef struct		s_token
 typedef struct		s_lstlum
 {
 	struct s_lstlum	*next;
-	t_vector		pos;
-	t_vector		color;
+	t_lum			lum;
 }					t_lstlum;
 
 typedef struct		s_lstform
@@ -153,24 +152,12 @@ int					pars_light(t_token **token, t_env *env);
 */
 
 int					pars_field_light(t_token **token, t_lum *light);
-t_material			pars_material(t_token **token);
-int					pars_field_form(t_token **token, t_form *form);
+t_material			pars_material(t_token **token, t_env *env);
+int					pars_field_form(t_token **token, t_form *form, t_env *env);
 int					pars_field_camera(t_token **token, t_env *env);
 t_vector			pars_vector_color(t_token **token);
 t_vector			pars_vector(t_token **token);
 double				pars_double(t_token **token);
 int					pars_name(t_token **token);
-
-/*
-**	Printing fonctions
-*/
-
-void				print_token(t_token *token);
-void				print_pile(t_pile *pile);
-void				print_norm(t_token *token);
-void				print_vector(t_vector vect);
-void				print_form(t_env env);
-void				print_light(t_env env);
-
 
 #endif

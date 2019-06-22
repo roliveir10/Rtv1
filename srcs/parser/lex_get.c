@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:25:51 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 01:04:49 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 21:39:42 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					get_type(char c)
 		if (str[k] == c)
 			return (k);
 	}
-	if (ft_isdigit(c) || ft_strchr("-+", c))
+	if (ft_isdigit(c) || ft_strchr("-+.", c))
 		return (NBRS);
 	else if (ft_strchr(" \t", c))
 		return (SPAC);
@@ -39,9 +39,9 @@ int					get_next_state(int status, int type)
 		{ERROR, ARGMT, ERROR, ERROR, ERROR, ERROR, ERROR, ERROR, TWPTS, ERROR},
 		{WORDS, ERROR, ERROR, LSTCP, ERROR, LSTOB, ERROR, NOMBR, ARGMT, ERROR},
 		{ENDED, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS, WORDS},
-		{ERROR, ERROR, START, ERROR, PILDW, ERROR, PILDW, ERROR, ENDED, ERROR}, 
-		{ERROR, ERROR, START, ERROR, PILDW, ERROR, PILDW, NOMBR, ENDED, ERROR}, 
-		{NAMES, ERROR, ERROR, LSTCP, ERROR, LSTOB, ERROR, NOMBR, LSTOB, ERROR}, 
+		{ERROR, ERROR, START, ERROR, PILDW, ERROR, PILDW, ERROR, ENDED, ERROR},
+		{ERROR, ERROR, START, ERROR, PILDW, ERROR, PILDW, NOMBR, ENDED, ERROR},
+		{NAMES, ERROR, ERROR, LSTCP, ERROR, LSTOB, ERROR, NOMBR, LSTOB, ERROR},
 	};
 
 	if (status >= NB_STATUS || status < 0 || type >= NB_TYPE || type < 0)

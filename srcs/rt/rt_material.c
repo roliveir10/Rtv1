@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 01:26:51 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 10:08:52 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 00:44:15 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,23 @@ static t_material		rt_mat_nothing(t_scene scene)
 	return (mat);
 }
 
+static t_material		rt_mat_jade(t_scene scene)
+{
+	t_material			mat;
+
+	(void)scene;
+	rt_attr_material(&mat.ambient, 0, 0, 0);
+	rt_attr_material(&mat.diffuse, 0.54, 0.89, 0.63);
+	rt_attr_material(&mat.specular, 0.316228, 0.316228, 0.316228);
+	mat.shininess = 0.1;
+	return (mat);
+}
+
 t_material				rt_get_material(t_ematerial emat, t_scene scene)
 {
-	static int			mat_tab[NBR_MATERIAL] = {NOTHING};
+	static int			mat_tab[NBR_MATERIAL] = {NOTHING, JADE};
 	static t_material	(*func[NBR_MATERIAL])(t_scene) = {
-		rt_mat_nothing};
+		rt_mat_nothing, rt_mat_jade};
 	int					i;
 
 	i = -1;

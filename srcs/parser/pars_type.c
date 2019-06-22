@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 15:23:58 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 00:44:13 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ int		pars_camera(t_token **token, t_env *env)
 	return (1);
 }
 
-t_form		pars_one_form(t_token **token)
+t_form		pars_one_form(t_token **token, t_env *env)
 {
 	t_form	form;
 
 	ft_bzero(&form, sizeof(t_form));
+	env->scene.spec = 0.316;
+	form.material = rt_get_material(NOTHING, env->scene);
 	*token = (*token)->next;
-	while (pars_field_form(token, &form) != -1)
+	while (pars_field_form(token, &form, env) != -1)
 	{
 		if (!(*token) || (*token)->type != ENDED)
 			break ;
@@ -68,7 +70,7 @@ int		pars_object(t_token **token, t_env *env)
 		ret = 1;
 		while (ret)
 		{
-			form = pars_one_form(token);
+			form = pars_one_form(token, env);
 			add_form(&lstform, form);
 			if (!(*token) || (*token)->type != ENDED)
 				ret = 0;
@@ -78,7 +80,7 @@ int		pars_object(t_token **token, t_env *env)
 		*token = (*token)->next;
 	}
 	else
-		pars_one_form(token);
+		pars_one_form(token, env);
 	env->nbr_form = size_lst_form(lstform);
 	env->form = lstform_to_form(lstform, env->nbr_form);
 	return (1);
@@ -89,6 +91,9 @@ t_lum	pars_one_light(t_token **token)
 	t_lum	light;
 
 	ft_bzero(&light, sizeof(t_lum));
+	light.constant = 1.0;
+	light.quadratic = 0.045;
+	light.linear = 0.009;
 	*token = (*token)->next;
 	while (pars_field_light(token, &light) != -1)
 	{

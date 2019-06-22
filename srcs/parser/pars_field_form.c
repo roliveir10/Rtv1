@@ -6,19 +6,41 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 01:44:07 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 01:01:50 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include "libft.h"
 
-#include <stdio.h>
+static int		following(t_form *form, char *word, t_token **token, t_env *env)
+{
+	if (!ft_strcmp(word, "\"rotation\""))
+		form->rotation = pars_vector(token);
+	else if (!ft_strcmp(word, "\"name\""))
+		form->ftype = pars_name(token);
+	else if (!ft_strcmp(word, "\"direct\""))
+		form->direct = pars_vector(token);
+	else if (!ft_strcmp(word, "\"point\""))
+		form->point = pars_vector(token);
+	else if (!ft_strcmp(word, "\"material\""))
+		form->material = pars_material(token, env);
+	else
+	{
+		ft_putstr_fd("rt: invalid field: ", 2);
+		ft_putstr_fd(word, 2);
+		ft_putstr_fd(" in type `form'\n", 2);
+		return (1);
+	}
+	return (0);
+}
 
-static int		pars_select_field(t_token **token, t_form *form)
+static int		pars_select_field(t_token **token, t_form *form, t_env *env)
 {
 	char		*word;
+	int			ret;
 
+	ret = 0;
 	word = (*token)->word;
 	if (!word)
 		return (1);
@@ -36,32 +58,19 @@ static int		pars_select_field(t_token **token, t_form *form)
 		form->h = pars_double(token);
 	else if (!ft_strcmp(word, "\"angle\""))
 		form->angle = pars_double(token);
-	else if (!ft_strcmp(word, "\"rotation\""))
-		form->rotation = pars_vector(token);
-	else if (!ft_strcmp(word, "\"name\""))
-		form->ftype = pars_name(token);
-	else if (!ft_strcmp(word, "\"direct\""))
-		form->direct = pars_vector(token);
-	else if (!ft_strcmp(word, "\"material\""))
-		form->material = pars_material(token);
 	else
-	{
-		ft_putstr_fd("rt: invalid field: ", 2);
-		ft_putstr_fd(word, 2);
-		ft_putstr_fd(" in type `form'\n", 2);
-		return (1);
-	}
-	return (0);
+		ret = following(form, word, token, env);
+	return (ret);
 }
 
-int				pars_field_form(t_token **token, t_form *form)
+int				pars_field_form(t_token **token, t_form *form, t_env *env)
 {
 	if ((*token)->type != NAMES)
 	{
 		ft_putstr_fd("rt: wrong format for form definition\n", 2);
 		return (-1);
 	}
-	if (pars_select_field(token, form))
+	if (pars_select_field(token, form, env))
 		return (-1);
 	return (0);
 }

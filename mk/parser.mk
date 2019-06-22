@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 10:04:52 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/19 19:31:12 by oboutrol         ###   ########.fr        #
+#    Updated: 2019/06/22 19:02:42 by oboutrol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,6 @@ PARSER =	parser_main.c		\
 			free_struct.c		\
 			pars_build_line.c	\
 			lex_pile.c			\
-			print_token.c		\
-			print_forms.c		\
-			print_light.c		\
-			print_elmt.c		\
 			lex_get.c			\
 			pars_token.c		\
 			pars_material.c		\

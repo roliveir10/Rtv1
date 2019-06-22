@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 17:12:49 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 01:31:55 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 00:44:16 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_env		token_to_env(t_token *token)
 
 	ret = 1;
 	ft_bzero(&env, sizeof(t_env));
+	env.scene.spec = 0.5;
 	if (!token)
 		return (env);
 	if (token->type != CBRO)
