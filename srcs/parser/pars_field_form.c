@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 23:46:59 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 01:01:50 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int		following(t_form *form, char *word, t_token **token, t_env *env)
 		form->ftype = pars_name(token);
 	else if (!ft_strcmp(word, "\"direct\""))
 		form->direct = pars_vector(token);
+	else if (!ft_strcmp(word, "\"point\""))
+		form->point = pars_vector(token);
 	else if (!ft_strcmp(word, "\"material\""))
 		form->material = pars_material(token, env);
 	else

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 00:27:18 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 00:44:19 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,12 @@ int				main(int argc, char **argv)
 {
 	t_env		env;
 
-	(void)argv;
 	if (argc != 2)
 	{
 		ft_putstr_fd("rtv1: file.json\n", 2);
 		return (1);
 	}
 	ft_bzero(&env, sizeof(t_env));
-	(void)argv;
-	env.scene.spec = 0.1;
 	if (pars_file(argv[1], &env))
 		return (1);
 	ft_bzero(&env.cam, sizeof(t_cam));
