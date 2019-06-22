@@ -1,0 +1,28 @@
+{
+	 "camera":
+		 {
+			 "origin":[10,         20, 30],
+			 "vect_n":[0, 1, 0]
+		 },
+		 "light":[
+		 {
+			 "origin":[0, 0, 20],
+			 "color":[255, 255, 255],
+			 "type":"point"
+		 }],
+		 "object":[
+		{
+			 "name":"sphere",
+			 "origin":[5, 0, 40],
+			 "rayon":4 ,
+			 "material":"jade",
+			 "color":[20, 255, 255]
+		},
+		{
+			 "name":"sphere",
+			 "origin":[-5, 0, 40],
+			 "rayon":4 ,
+			 "color":[20, 255, 255]
+
+		 }]
+}

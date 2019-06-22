@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:58:22 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 01:14:32 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/22 19:00:41 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int			pars_file(char *str, t_env *env)
 		return (1);
 	if (rest)
 		free(rest);
-	print_token(token->next);ft_putchar('\n');
-	print_norm(token->next);
 	*env = token_to_env(token->next);
 	return (0);
 }

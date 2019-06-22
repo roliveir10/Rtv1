@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:14:23 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 15:33:37 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/22 18:46:40 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ double		ft_atod(char *value)
 	double	div;
 	double	res;
 	int		k;
-	int		sign;
+	double	sign;
 
 	div = 1.0;
 	res = 0;
-	sign = value[0] == '-' ? -1 : 1;
-	if (value[0] == '-' || value[0] == '+')
-		res++;
+	sign = value[0] == '-' ? -1.0 : 1.0;
 	k = -1;
+	if (value[0] == '-' || value[0] == '+')
+		k++;
 	while (ft_isdigit(value[++k]))
 		res = res * 10 + value[k] - '0';
 	if (value[k] == '.')

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 20:35:34 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 20:04:04 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/22 23:51:51 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,9 @@ static int		pars_name_light(t_token **token)
 	return (type);
 }
 
-static int		pars_select_field(t_token **token, t_lum *light)
+static int		following(t_token **token, t_lum *light, char *word)
 {
-	char		*word;
-
-	ft_putstr("oane\n");
-	word = (*token)->word;
-	if (!word)
-		return (1);
-	if (!(*token = (*token)->next))
-		return (1);
-	if (!(*token = (*token)->next))
-		return (1);
-	if (!ft_strcmp(word, "\"origin\""))
-	{
-		light->pos = pars_vector(token);
-		print_vector(light->color);
-	}
-	else if (!ft_strcmp(word, "\"color\""))
-	{
-		light->color = pars_vector_color(token);
-		print_vector(light->color);
-	}
-	else if (!ft_strcmp(word, "\"direct\""))
-		light->dir = pars_vector(token);
-	else if (!ft_strcmp(word, "\"constant\""))
-		light->constant = pars_double(token);
-	else if (!ft_strcmp(word, "\"linear\""))
-		light->linear = pars_double(token);
-	else if (!ft_strcmp(word, "\"quadratic\""))
+	if (!ft_strcmp(word, "\"quadratic\""))
 		light->quadratic = pars_double(token);
 	else if (!ft_strcmp(word, "\"type\""))
 		light->type = pars_name_light(token);
@@ -71,6 +45,32 @@ static int		pars_select_field(t_token **token, t_lum *light)
 		return (1);
 	}
 	return (0);
+}
+
+static int		pars_select_field(t_token **token, t_lum *light)
+{
+	char		*word;
+	int			ret;
+
+	ret = 0;
+	word = (*token)->word;
+	if (!word)
+		return (1);
+	if (!(*token = (*token)->next))
+		return (1);
+	if (!(*token = (*token)->next))
+		return (1);
+	if (!ft_strcmp(word, "\"origin\""))
+		light->pos = pars_vector(token);
+	else if (!ft_strcmp(word, "\"color\""))
+		light->color = pars_vector_color(token);
+	else if (!ft_strcmp(word, "\"direct\""))
+		light->dir = pars_vector(token);
+	else if (!ft_strcmp(word, "\"linear\""))
+		light->linear = pars_double(token);
+	else
+		ret = following(token, light, word);
+	return (ret);
 }
 
 int				pars_field_light(t_token **token, t_lum *light)
