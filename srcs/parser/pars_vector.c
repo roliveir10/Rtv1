@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:41:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 16:12:08 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 22:09:49 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ double			pars_double(t_token **token)
 	if (!((*token)->word))
 		return (0);
 	res = ft_atod((*token)->word);
+	free_move(token);
 	return (res);
 }
 
@@ -59,15 +60,13 @@ t_vector		pars_vector(t_token **token)
 	ft_bzero(&vect, sizeof(t_vector));
 	if ((*token)->type != BRAO || free_move(token))
 		return (vect);
-	vect.x = ft_atod((*token)->word);
+	vect.x = pars_double(token);
 	if (token_next(token))
 		return (vect);
-	vect.y = ft_atod((*token)->word);
+	vect.y = pars_double(token);
 	if (token_next(token))
 		return (vect);
-	vect.z = ft_atod((*token)->word);
-	if (free_move(token))
-		return (vect);
+	vect.z = pars_double(token);
 	return (vect);
 }
 

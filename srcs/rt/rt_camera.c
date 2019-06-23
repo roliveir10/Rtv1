@@ -6,17 +6,17 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:16:17 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 10:20:04 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 18:37:43 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void			rt_update_campos(t_cam *cam)
+void				rt_update_campos(t_cam *cam)
 {
-	t_vector	vx;
-	t_vector	vy;
-	t_vector	vz;
+	t_vector		vx;
+	t_vector		vy;
+	t_vector		vz;
 
 	vz = ft_vmul(cam->vec_dir[2], cam->vp_dist);
 	vy = ft_vmul(cam->vec_dir[1], cam->vp_height / 2.0);
@@ -26,9 +26,9 @@ void			rt_update_campos(t_cam *cam)
 	cam->vp_upleft.z = cam->pos.z + vz.z + vy.z - vx.z;
 }
 
-void			rt_update_camrot(t_cam *cam, double mat[3][3][3])
+void				rt_update_camrot(t_cam *cam, double mat[3][3][3])
 {
-	int			i;
+	int				i;
 
 	i = -1;
 	while (++i < 3)
@@ -40,7 +40,7 @@ void			rt_update_camrot(t_cam *cam, double mat[3][3][3])
 	rt_update_campos(cam);
 }
 
-void			rt_movecam_pos(t_env *env, int keycode)
+void				rt_movecam_pos(t_env *env, int keycode)
 {
 	if (keycode == KLEFT)
 		env->cam.pos.x -= SCREENX / 500;

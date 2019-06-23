@@ -6,14 +6,14 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 17:09:38 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 20:19:35 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARS_H
 # define PARS_H
 # define FALSE 0
-# define NB_TYPES 3
+# define NB_TYPES 4
 # define TRUTH 1
 # include "rt.h"
 # define BUFF 2048
@@ -143,6 +143,7 @@ t_form				*lstform_to_form(t_lstform *lstform, int size);
 t_env				token_to_env(t_token **token);
 int					pars_type(t_token **token, t_env *env);
 int					pars_camera(t_token **token, t_env *env);
+int					pars_scene(t_token **token, t_env *env);
 int					pars_object(t_token **token, t_env *env);
 int					pars_light(t_token **token, t_env *env);
 void				free_token(t_token **token);
@@ -159,6 +160,7 @@ int					pars_field_light(t_token **token, t_lum *light);
 t_material			pars_material(t_token **token, t_env *env);
 int					pars_field_form(t_token **token, t_form *form, t_env *env);
 int					pars_field_camera(t_token **token, t_env *env);
+int					pars_field_scene(t_token **token, t_env *env);
 t_vector			pars_vector_color(t_token **token);
 t_vector			pars_vector(t_token **token);
 double				pars_double(t_token **token);

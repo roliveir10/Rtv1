@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:16:29 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 04:33:03 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 22:07:42 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ static int	lex_error(t_token **token, t_stat *stat, int k)
 	return (1);
 }
 
+static void	add_token(t_token *token, char *str, int type)
+{
+	t_token	*new;
+	t_token *tmp;
+
+	if (!(new = ft_memalloc(sizeof(t_token))))
+		return ;
+	new->type = type;
+	new->word = ft_strdup(str);
+	tmp = token;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+}
+
 int			pars_build_line(t_token *token, char *str, t_stat *stat, int s)
 {
 	int		k;
@@ -68,6 +83,8 @@ int			pars_build_line(t_token *token, char *str, t_stat *stat, int s)
 		stat->val = get_val(stat->old_status, stat->type);
 		if (lex_process(token, stat, buff))
 			return (lex_error(&token, stat, s));
+		if (stat->old_status == NOMBR && stat->type == CARM && k != 0)
+			add_token(token, ",", ENDED);
 	}
 	if (buff[0])
 		lex_add_token(buff, stat, token);

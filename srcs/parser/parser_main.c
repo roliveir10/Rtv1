@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 17:27:33 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 18:36:50 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void		pars_fill_cam(t_cam *cam)
 	cam->vp_height = SCREENY;
 	cam->vp_dist = 1000;
 	cam->pos.x = 0.0;
-	cam->pos.y = 0.0;	
-	cam->pos.z = -30.0;	
+	cam->pos.y = 0.0;
+	cam->pos.z = -30.0;
 }
 
 int				main(int argc, char **argv)
