@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 19:03:07 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 03:47:18 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int					get_val(int status, int type);
 void				lex_add_char(char buff[BUFF], char **load, char cha);
 void				lex_add_token(char buff[BUFF], t_stat *stat, t_token *tok);
 t_token				*lex_init_token(int type, char *str);
-void				free_token(t_token *token);
 void				free_struct(t_token *token);
 void				pile_up(t_stat *stat, int type);
 int					pile_down(t_stat *stat, int type);
@@ -146,6 +145,10 @@ int					pars_type(t_token **token, t_env *env);
 int					pars_camera(t_token **token, t_env *env);
 int					pars_object(t_token **token, t_env *env);
 int					pars_light(t_token **token, t_env *env);
+void				free_token(t_token **token);
+void				free_lstform(t_lstform **token);
+void				free_lstlum(t_lstlum **token);
+int					free_move(t_token **token);
 
 /*
 **	Parsing fields

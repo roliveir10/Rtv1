@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:58:22 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 19:00:41 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 03:27:10 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,24 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "pars.h"
+
+void		del_pile(t_pile **pile)
+{
+	if (!(*pile))
+		return ;
+	del_pile(&(*pile)->next);
+	free(*pile);
+	*pile = NULL;
+}
+
+static int	free_stat(t_stat *stat, int ret)
+{
+	if (!stat || !stat->pile)
+		return (ret);
+	del_pile(&stat->pile);
+	ft_strdel(&stat->load);
+	return (ret);
+}
 
 static int	token_up(int fd, t_token *token, char **str)
 {
@@ -34,15 +52,22 @@ static int	token_up(int fd, t_token *token, char **str)
 	while ((ret = get_line(fd, &line, str)) > 0)
 	{
 		if (pars_build_line(token, line, &stat, ++k))
-			return (1);
+			return (free_stat(&stat, 1));
 		ft_strdel(&line);
 	}
 	if (ret == -1)
 	{
-		ft_putstr_fd("rt: read error\n", 2);
-		return (1);
+		ft_putstr_fd("rtv1: read error\n", 2);
+		return (free_stat(&stat, 1));
 	}
-	return (0);
+	return (free_stat(&stat, 0));
+}
+
+static int	quit_free(t_token **token, int ret, char **rest)
+{
+	ft_strdel(rest);
+	free_token(token);
+	return (ret);
 }
 
 int			pars_file(char *str, t_env *env)
@@ -51,20 +76,22 @@ int			pars_file(char *str, t_env *env)
 	t_token	*token;
 	char	*rest;
 
+	token = NULL;
+	rest = NULL;
 	if ((fd = open(str, O_RDONLY)) == -1)
 	{
-		ft_putstr_fd("rt: can not open: `", 2);
+		ft_putstr_fd("rtv1: can not open: `", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("' for reading\n", 2);
-		return (1);
+		return (quit_free(&token, 1, &rest));
 	}
 	if (!(token = lex_init_token(0, NULL)))
-		return (1);
+		return (quit_free(&token, 1, &rest));
 	rest = NULL;
 	if (token_up(fd, token, &rest))
-		return (1);
+		return (quit_free(&token, 1, &rest));
 	if (rest)
 		free(rest);
 	*env = token_to_env(token->next);
-	return (0);
+	return (quit_free(&token, 0, &rest));
 }
