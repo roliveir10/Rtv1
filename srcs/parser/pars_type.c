@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 17:09:39 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:15:42 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_lum				pars_one_light(t_token **token)
 	return (light);
 }
 
-#include <unistd.h>
 int					pars_light(t_token **token, t_env *env)
 {
 	t_lum			light;
