@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 03:57:01 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:09:39 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ int					pars_object(t_token **token, t_env *env)
 	t_lstform		*lstform;
 
 	lstform = NULL;
-	*token = (*token)->next;
-	if (!(*token = (*token)->next))
+	free_move(token);
+	if (free_move(token))
 		return (-1);
 	if ((*token)->type == BRAO)
 	{
-		*token = (*token)->next;
+		free_move(token);
 		while (1)
 		{
 			form = pars_one_form(token, env);
 			add_form(&lstform, form);
 			if (!(*token) || (*token)->type != ENDED)
 				break ;
-			*token = (*token)->next;
+			free_move(token);
 		}
-		*token = (*token)->next;
+		free_move(token);
 	}
 	else
 		pars_one_form(token, env);
@@ -68,39 +68,39 @@ t_lum				pars_one_light(t_token **token)
 	light.constant = 1.0;
 	light.quadratic = 0.045;
 	light.linear = 0.009;
-	*token = (*token)->next;
+	free_move(token);
 	while (pars_field_light(token, &light) != -1)
 	{
 		if (!(*token) || (*token)->type != ENDED)
 			break ;
-		*token = (*token)->next;
+		free_move(token);
 	}
-	if (*token)
-		*token = (*token)->next;
+	free_move(token);
 	return (light);
 }
 
+#include <unistd.h>
 int					pars_light(t_token **token, t_env *env)
 {
 	t_lum			light;
 	t_lstlum		*lstlum;
 
 	lstlum = NULL;
-	*token = (*token)->next;
-	if (!(*token = (*token)->next))
+	free_move(token);
+	if (free_move(token))
 		return (-1);
 	if ((*token)->type == BRAO)
 	{
-		*token = (*token)->next;
+		free_move(token);
 		while (1)
 		{
 			light = pars_one_light(token);
 			add_light(&lstlum, light);
 			if (!(*token) || (*token)->type != ENDED)
 				break ;
-			*token = (*token)->next;
+			free_move(token);
 		}
-		*token = (*token)->next;
+		free_move(token);
 	}
 	else
 		pars_one_light(token);
@@ -117,6 +117,8 @@ int					pars_type(t_token **token, t_env *env)
 	static int		(*fct_pars[NB_TYPES])(t_token**, t_env*) = {
 		pars_camera, pars_object, pars_light};
 
+	if (!(*token) || !(*token)->word)
+		return (-1);
 	k = -1;
 	while (++k < NB_TYPES)
 		if (!ft_strcmp(types[k], (*token)->word))

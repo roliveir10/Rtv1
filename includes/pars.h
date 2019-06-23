@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 03:47:18 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:09:38 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ t_form				*lstform_to_form(t_lstform *lstform, int size);
 **	Parsing tokens
 */
 
-t_env				token_to_env(t_token *token);
+t_env				token_to_env(t_token **token);
 int					pars_type(t_token **token, t_env *env);
 int					pars_camera(t_token **token, t_env *env);
 int					pars_object(t_token **token, t_env *env);
@@ -149,6 +149,7 @@ void				free_token(t_token **token);
 void				free_lstform(t_lstform **token);
 void				free_lstlum(t_lstlum **token);
 int					free_move(t_token **token);
+int					free_double_move(t_token **token);
 
 /*
 **	Parsing fields

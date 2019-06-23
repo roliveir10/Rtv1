@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 16:55:27 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 22:06:49 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:22:46 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_material		pars_material(t_token **token, t_env *env)
 		mat = rt_get_material(NOTHING, env->scene);
 	else if (!ft_strcmp("\"jade\"", word))
 		mat = rt_get_material(JADE, env->scene);
-	if (*token)
-		*token = (*token)->next;
+	free_move(token);
 	return (mat);
 }

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:20:16 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/19 15:24:55 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:05:37 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ static int		pars_select_field(t_token **token, t_env *env)
 {
 	char		*word;
 
-	word = (*token)->word;
+	word = ft_strdup((*token)->word);
 	if (!word)
 		return (1);
-	if (!(*token = (*token)->next))
+	if (free_double_move(token))
+	{
+		ft_strdel(&word);
 		return (1);
-	if (!(*token = (*token)->next))
-		return (1);
+	}
 	if (!ft_strcmp(word, "\"origin\""))
 		env->cam.pos = pars_vector(token);
 	else if (!ft_strcmp(word, "\"vect_n\""))
@@ -33,8 +34,10 @@ static int		pars_select_field(t_token **token, t_env *env)
 		ft_putstr_fd("rt: invalid field: ", 2);
 		ft_putstr_fd(word, 2);
 		ft_putstr_fd(" in type `camera'\n", 2);
+		ft_strdel(&word);
 		return (1);
 	}
+	ft_strdel(&word);
 	return (0);
 }
 

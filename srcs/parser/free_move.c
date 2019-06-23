@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 03:48:17 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 04:11:19 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:22:21 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int				free_move(t_token **token)
 	tmp = *token;
 	if (!(*token = (*token)->next))
 		return (1);
-	free_token(&tmp);
+	ft_strdel(&tmp->word);
+	free(tmp);
 	return (0);
 }
 

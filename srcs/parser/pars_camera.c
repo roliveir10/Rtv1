@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:11:36 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 02:13:25 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:03:35 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,21 @@
 
 int					pars_camera(t_token **token, t_env *env)
 {
-	*token = (*token)->next;
-	if (!(*token = (*token)->next))
+	free_move(token);
+	if (free_move(token))
 		return (-1);
 	if ((*token)->type == BRAO)
 	{
 		ft_putstr_fd("rt: Only one camera expected, remove lst\n", 2);
 		return (-1);
 	}
-	*token = (*token)->next;
+	free_move(token);
 	while (pars_field_camera(token, env) != -1)
 	{
 		if (!(*token) || (*token)->type != ENDED)
 			break ;
-		*token = (*token)->next;
+		free_move(token);
 	}
-	if (*token)
-		*token = (*token)->next;
+	free_move(token);
 	return (1);
 }

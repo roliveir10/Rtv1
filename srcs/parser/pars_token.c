@@ -6,13 +6,13 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 17:12:49 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 00:44:16 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:09:37 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 
-t_env		token_to_env(t_token *token)
+t_env		token_to_env(t_token **token)
 {
 	t_env	env;
 	int		ret;
@@ -20,21 +20,21 @@ t_env		token_to_env(t_token *token)
 	ret = 1;
 	ft_bzero(&env, sizeof(t_env));
 	env.scene.spec = 0.5;
-	if (!token)
+	if (!(*token))
 		return (env);
-	if (token->type != CBRO)
+	if ((*token)->type != CBRO)
 	{
 		ft_putstr_fd("rt: JSON file should start with `{'\n", 2);
 		return (env);
 	}
-	token = token->next;
-	while ((ret = pars_type(&token, &env)))
+	free_move(token);
+	while ((ret = pars_type(token, &env)))
 	{
 		if (ret == -1)
 			return (env);
-		if (!token || token->type != ENDED)
+		if (!(*token) || (*token)->type != ENDED)
 			return (env);
-		token = token->next;
+		free_move(token);
 	}
 	return (env);
 }
