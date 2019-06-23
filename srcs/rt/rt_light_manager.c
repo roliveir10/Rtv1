@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 21:28:14 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/22 23:57:12 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 05:58:50 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_vector		rt_nolight_inter(t_lum lum, t_inter *inter, t_material m)
 	if (lum.type == LCAST)
 		inter->lightdir = lum.pos;
 	else
-		inter->lightdir = rt_get_vector(inter->pos, lum.pos);
+		inter->lightdir = ft_get_vector(inter->pos, lum.pos);
 	return (rt_get_color(lum, *inter, m));
 }
 
@@ -44,7 +44,7 @@ static int			rt_light_inter(t_env *env, int indsh, t_ray *ray, int indli)
 	if (dist > 0)
 	{
 		rt_reset_point(env->form[indsh], &ray->o);
-		if (dist < rt_dist(env->lum[indli].pos, ray->o))
+		if (dist < ft_vdist(env->lum[indli].pos, ray->o))
 			return (1);
 	}
 	return (0);
@@ -65,11 +65,11 @@ t_vector			rt_light_manager(t_env *env, t_inter inter)
 		while (++j < env->nbr_form)
 		{
 			ray.o = inter.pos;
-			ray.dir = rt_get_vector(ray.o, env->lum[i].pos);
+			ray.dir = ft_get_vector(ray.o, env->lum[i].pos);
 			if (rt_light_inter(env, j, &ray, i))
 				break ;
 		}
-		color = rt_vadd(rt_light_tocolor(env, j, i, &inter), color);
+		color = ft_vadd(rt_light_tocolor(env, j, i, &inter), color);
 	}
 	return (color);
 }

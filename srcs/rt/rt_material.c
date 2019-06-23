@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 01:26:51 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 00:44:15 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 10:15:12 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static t_material		rt_mat_nothing(t_scene scene)
 {
 	t_material			mat;
 
+	scene.ambient = 0.1;
+	// must be set in the parsing
 	rt_attr_material(&mat.ambient, scene.ambient, scene.ambient, scene.ambient);
 	rt_attr_material(&mat.diffuse, 0.5, 0.5, 0.5);
 	rt_attr_material(&mat.specular, scene.spec, scene.spec, scene.spec);
@@ -36,7 +38,7 @@ static t_material		rt_mat_jade(t_scene scene)
 	t_material			mat;
 
 	(void)scene;
-	rt_attr_material(&mat.ambient, 0, 0, 0);
+	rt_attr_material(&mat.ambient, 0.135, 0.2225, 0.1575);
 	rt_attr_material(&mat.diffuse, 0.54, 0.89, 0.63);
 	rt_attr_material(&mat.specular, 0.316228, 0.316228, 0.316228);
 	mat.shininess = 0.1;

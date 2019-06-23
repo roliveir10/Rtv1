@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 10:41:12 by roliveir          #+#    #+#              #
-#    Updated: 2019/05/02 20:23:33 by roliveir         ###   ########.fr        #
+#    Updated: 2019/06/23 07:03:50 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,20 @@ SRCS = ft_bzero.c\
 	   ft_mgerror.c\
 	   ft_putendlnb.c\
 	   ft_delc.c\
-	   ft_diff_abs.c
+	   ft_diff_abs.c\
+	   ft_get_vector.c\
+	   ft_normalize.c\
+	   ft_dot.c\
+	   ft_vdist.c\
+	   ft_vdiv.c\
+	   ft_vvmul.c\
+	   ft_vsub.c\
+	   ft_vadd.c\
+	   ft_vmul.c\
+	   ft_2nd_degree.c\
+	   ft_vrotate.c\
+	   ft_fmat.c\
+	   ft_clamp.c
 PRINTF = ft_printf/ft_caster.c\
 		 ft_printf/ft_conv_base.c\
 		 ft_printf/ft_flag.c\

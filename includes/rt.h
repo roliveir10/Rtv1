@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 00:44:20 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 14:03:11 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@
 
 # define SCREENX 2080
 # define SCREENY 1170
+# define SCREEN SCREENX * SCREENY
 
 # define NBR_FORM 4
 # define NBR_THREAD 4
 # define NBR_MATERIAL 2
-# define NBR_KEY 13
-# define BLINN 0
+# define NBR_KEY 11
+# define NBR_MKEY 2
+# define BLINN 1
 # define PIX 32
+# define ANTI_A 0
 
 /*
 ** ENUM
@@ -32,7 +35,8 @@
 typedef enum			e_event
 {
 	KEYPRESS = 2,
-	REDBUTTON = 17
+	REDBUTTON = 17,
+	MOUSEPRESS = 4
 }						t_event;
 
 typedef enum			e_key
@@ -40,17 +44,21 @@ typedef enum			e_key
 	KESCAP = 53,
 	KLEFT = 123,
 	KRIGHT = 124,
-	KFOR = 14,
-	KBACK = 2,
 	KUP = 126,
 	KDOWN = 125,
 	KRXUP = 115,
 	KRXDOWN = 119,
 	KRYRIGHT = 117,
 	KRYLEFT = 121,
-	KRZRIGHT = 264,
+	KRZRIGHT = 279,
 	KRZLEFT = 116
 }						t_key;
+
+typedef enum			e_mkey
+{
+	MDOWN = 4,
+	MUP
+}						t_mkey;
 
 typedef enum			e_ftype
 {
@@ -88,13 +96,6 @@ typedef struct			s_mlx
 	int					size_line;
 	int					endian;
 }						t_mlx;
-
-typedef struct			s_vector
-{
-	double				x;
-	double				y;
-	double				z;
-}						t_vector;
 
 typedef struct			s_inter
 {
@@ -197,6 +198,8 @@ double					rt_cone(t_ray ray, t_form form);
 */
 
 int						rt_print(void *param);
+void					rt_add_pixel(t_env *env, t_vector color, int pos);
+void					rt_antialiasing(t_env *env);
 
 /*
 **	light
@@ -225,24 +228,11 @@ t_vector				rt_ambient_only(t_lum lum, t_material mat,
 **	calc
 */
 
-t_vector				rt_get_vecdir(t_cam cam, int x, int y);
+t_vector				rt_get_vecdir(t_cam cam, double x, double y);
 t_vector				rt_get_posinter(t_ray ray, double dist);
-t_vector				rt_get_vector(t_vector va, t_vector vb);
 t_vector				rt_get_normal(t_vector v, t_form form);
-t_vector				rt_normalize(t_vector v);
-double					rt_dot(t_vector va, t_vector vb);
-double					rt_dist(t_vector va, t_vector vb);
-double					rt_resolv_nd_degre(double a, double b, double c);
 double					rt_inter(t_ftype ftype, t_ray *ray, t_form form);
 
-/*
-**	operations
-*/
-
-t_vector				rt_vmul(t_vector v, double f);
-t_vector				rt_vadd(t_vector va, t_vector vb);
-t_vector				rt_vsub(t_vector va, t_vector vb);
-t_vector				rt_vvmul(t_vector va, t_vector vb);
 
 /*
 **	key_handler
@@ -252,11 +242,20 @@ int						rt_keypress(int keycode, void *param);
 int						rt_close(void *param);
 
 /*
+**	mouse_handler
+*/
+
+int						rt_mousepress(int keycode, int x, int y, void *param);
+
+/*
 **	camera
 */
 
 void					rt_update_campos(t_cam *cam);
 void					rt_update_camrot(t_cam *cam, double mat[3][3][3]);
+void					rt_movecam_pos(t_env *env, int keycode);
+void					rt_movecam_rot(t_env *env, int keycode);
+void					rt_mmovecam_pos(t_env *env, int keycode);
 
 /*
 **	rotation
@@ -265,9 +264,6 @@ void					rt_update_camrot(t_cam *cam, double mat[3][3][3]);
 void					rt_initialize_rotation(t_form **form, int nbr_form);
 void					rt_set_ref(t_ray *ray, t_form form);
 void					rt_reset_point(t_form form, t_vector *inte);
-void					rt_vect_rotation(t_vector *vec, double mat[3][3]);
-void					rt_fill_matrot(double (*mat)[3][3][3],
-		t_vector rotation);
 
 /*
 **	materials
@@ -275,9 +271,4 @@ void					rt_fill_matrot(double (*mat)[3][3][3],
 
 t_material				rt_get_material(t_ematerial emat, t_scene scene);
 
-/*
-**	debug
-*/
-
-void					debug_print_pos(t_vector pos);
 #endif

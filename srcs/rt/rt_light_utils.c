@@ -6,13 +6,14 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:07:21 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/20 10:34:26 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 06:06:17 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "rt.h"
 
+#include <stdio.h>
 t_vector		rt_spec(t_vector light, t_inter inter, t_material mat,
 		double attenuation)
 {
@@ -20,23 +21,23 @@ t_vector		rt_spec(t_vector light, t_inter inter, t_material mat,
 	double		angle;
 
 	if (BLINN == 1)
-		angle = rt_dot(inter.norm, rt_normalize(rt_vadd(inter.lightdir,
+		angle = ft_dot(inter.norm, ft_normalize(ft_vadd(inter.lightdir,
 						inter.viewdir)));
 	else
-		angle = rt_dot(inter.norm, inter.lightdir);
-	spec = rt_vmul(mat.specular, pow(angle, 256 * mat.shininess));
-	return (rt_vmul(rt_vvmul(light, spec), attenuation));
+		angle = ft_dot(inter.norm, inter.lightdir);
+	spec = ft_vmul(mat.specular, pow(angle, 256 * mat.shininess));
+	return (ft_vmul(ft_vvmul(light, spec), attenuation));
 }
 
 t_vector		rt_diffuse(t_vector light, double angle, t_material mat,
 		double attenuation)
 {
-	return (rt_vmul(rt_vvmul(light, rt_vmul(mat.diffuse, angle)), attenuation));
+	return (ft_vmul(ft_vvmul(light, ft_vmul(mat.diffuse, angle)), attenuation));
 }
 
 t_vector		rt_ambient(t_vector light, t_material mat, double attenuation)
 {
-	return (rt_vmul(rt_vvmul(light, mat.ambient), attenuation));
+	return (ft_vmul(ft_vvmul(light, mat.ambient), attenuation));
 }
 
 double			rt_attenuation(t_lum lum, double dist)

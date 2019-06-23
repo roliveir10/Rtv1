@@ -6,35 +6,23 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 00:03:30 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 09:32:17 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "rt.h"
 
-void		rt_vect_rotation(t_vector *vec, double mat[3][3])
-{
-	double	tmpx;
-	double	tmpy;
-
-	tmpx = vec->x;
-	tmpy = vec->y;
-	vec->x = mat[0][0] * tmpx + mat[0][1] * tmpy + mat[0][2] * vec->z;
-	vec->y = mat[1][0] * tmpx + mat[1][1] * tmpy + mat[1][2] * vec->z;
-	vec->z = mat[2][0] * tmpx + mat[2][1] * tmpy + mat[2][2] * vec->z;
-}
-
 void		rt_set_ref(t_ray *ray, t_form form)
 {
 	int		i;
 
 	i = -1;
-	ray->o = rt_vsub(ray->o, form.center);
+	ray->o = ft_vsub(form.center, ray->o);
 	while (++i < 3)
 	{
-		rt_vect_rotation(&ray->dir, form.mat[i]);
-		rt_vect_rotation(&ray->o, form.mat[i]);
+		ray->dir = ft_vrotate(ray->dir, form.mat[i]);
+		ray->o = ft_vrotate(ray->o, form.mat[i]);
 	}
 }
 
@@ -44,8 +32,8 @@ void		rt_reset_point(t_form form, t_vector *inte)
 
 	i = 3;
 	while (--i + 1)
-		rt_vect_rotation(inte, form.mati[i]);
-	*inte = rt_vadd(*inte, form.center);
+		*inte = ft_vrotate(*inte, form.mati[i]);
+	*inte = ft_vadd(*inte, form.center);
 }
 
 void		rt_initialize_rotation(t_form **form, int nbr_form)
@@ -55,7 +43,7 @@ void		rt_initialize_rotation(t_form **form, int nbr_form)
 	i = -1;
 	while (++i < nbr_form)
 	{
-		rt_fill_matrot(&(*form)[i].mat, (*form)[i].rotation);
-		rt_fill_matrot(&(*form)[i].mati, (*form)[i].rotation);
+		ft_fmat(&(*form)[i].mat, (*form)[i].rotation, 1);
+		ft_fmat(&(*form)[i].mati, (*form)[i].rotation, -1);
 	}
 }

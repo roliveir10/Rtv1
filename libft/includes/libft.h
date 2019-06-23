@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:28:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/03 06:12:48 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 07:03:38 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,27 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct		s_vector
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_vector;
+
+double				ft_clamp(double value, double lo, double hi);
+void				ft_fmat(double (*mat)[3][3][3], t_vector rotation,
+		double way);
+t_vector			ft_vrotate(t_vector v, double [3][3]);
+double				ft_2nd_degree(double a, double b, double c);
+t_vector			ft_normalize(t_vector v);
+double				ft_dot(t_vector va, t_vector vb);
+t_vector			ft_get_vector(t_vector pos_a, t_vector pos_b);
+double				ft_vdist(t_vector pos_a, t_vector pos_b);
+t_vector			ft_vdiv(t_vector v, double f);
+t_vector			ft_vvmul(t_vector va, t_vector vb);
+t_vector			ft_vsub(t_vector pos_a, t_vector pos_b);
+t_vector			ft_vadd(t_vector pos_a, t_vector pos_b);
+t_vector			ft_vmul(t_vector v, double f);
 int					ft_abs(int x);
 void				ft_swap_int(int *a, int *b);
 void				ft_swap(char **a, char **b);
