@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_material.c                                    :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 16:55:27 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 16:22:46 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/23 02:28:55 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/23 04:33:07 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
+#include <stdlib.h>
 
-t_material		pars_material(t_token **token, t_env *env)
+void		free_token(t_token **token)
 {
-	t_material	mat;
-	char		*word;
+	if (!(*token))
+		return ;
+	free_token(&(*token)->next);
+	ft_strdel(&(*token)->word);
+	free(*token);
+	*token = NULL;
+}
 
-	ft_bzero(&mat, sizeof(t_material));
-	if (!(word = (*token)->word))
-		return (mat);
-	if (!ft_strcmp("\"nothing\"", word))
-		mat = rt_get_material(NOTHING, env->scene);
-	else if (!ft_strcmp("\"jade\"", word))
-		mat = rt_get_material(JADE, env->scene);
-	free_move(token);
-	return (mat);
+void		free_lstform(t_lstform **lstform)
+{
+	if (!(*lstform))
+		return ;
+	free_lstform(&(*lstform)->next);
+	free(*lstform);
+}
+
+void		free_lstlum(t_lstlum **lstlum)
+{
+	if (!(*lstlum))
+		return ;
+	free_lstlum(&(*lstlum)->next);
+	free(*lstlum);
 }

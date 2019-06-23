@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 20:35:34 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 23:51:51 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:03:39 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		pars_name_light(t_token **token)
 		type = LCAST;
 	else if (!ft_strcmp(word, "\"point\""))
 		type = LPOINT;
-	*token = (*token)->next;
+	free_move(token);
 	return (type);
 }
 
@@ -53,12 +53,12 @@ static int		pars_select_field(t_token **token, t_lum *light)
 	int			ret;
 
 	ret = 0;
-	word = (*token)->word;
+	word = ft_strdup((*token)->word);
 	if (!word)
 		return (1);
-	if (!(*token = (*token)->next))
+	if (free_move(token))
 		return (1);
-	if (!(*token = (*token)->next))
+	if (free_move(token))
 		return (1);
 	if (!ft_strcmp(word, "\"origin\""))
 		light->pos = pars_vector(token);
@@ -70,6 +70,7 @@ static int		pars_select_field(t_token **token, t_lum *light)
 		light->linear = pars_double(token);
 	else
 		ret = following(token, light, word);
+	ft_strdel(&word);
 	return (ret);
 }
 

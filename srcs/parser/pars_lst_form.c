@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 23:39:23 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 15:43:22 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:09:30 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,21 @@ t_form			*lstform_to_form(t_lstform *lstform, int size)
 {
 	t_form		*form;
 	int			j;
+	t_lstform	*tmp;
 
+	tmp = lstform;
 	if (!(form = (t_form*)ft_memalloc(sizeof(t_form) * size)))
+	{
+		free_lstform(&lstform);
 		return (NULL);
+	}
 	j = -1;
 	while (++j < size)
 	{
 		form[j] = lstform->form;
 		lstform = lstform->next;
 	}
+	free_lstform(&tmp);
 	return (form);
 }
 

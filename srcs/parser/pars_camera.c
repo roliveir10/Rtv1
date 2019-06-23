@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_token.c                                       :+:      :+:    :+:   */
+/*   pars_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/16 17:12:49 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 17:09:37 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/23 02:11:36 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/23 16:03:35 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
+#include "libft.h"
 
-t_env		token_to_env(t_token **token)
+int					pars_camera(t_token **token, t_env *env)
 {
-	t_env	env;
-	int		ret;
-
-	ret = 1;
-	ft_bzero(&env, sizeof(t_env));
-	env.scene.spec = 0.5;
-	if (!(*token))
-		return (env);
-	if ((*token)->type != CBRO)
+	free_move(token);
+	if (free_move(token))
+		return (-1);
+	if ((*token)->type == BRAO)
 	{
-		ft_putstr_fd("rt: JSON file should start with `{'\n", 2);
-		return (env);
+		ft_putstr_fd("rt: Only one camera expected, remove lst\n", 2);
+		return (-1);
 	}
 	free_move(token);
-	while ((ret = pars_type(token, &env)))
+	while (pars_field_camera(token, env) != -1)
 	{
-		if (ret == -1)
-			return (env);
 		if (!(*token) || (*token)->type != ENDED)
-			return (env);
+			break ;
 		free_move(token);
 	}
-	return (env);
+	free_move(token);
+	return (1);
 }

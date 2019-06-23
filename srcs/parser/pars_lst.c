@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 22:48:56 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 15:45:33 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:01:20 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,38 @@
 int				size_lst(t_lstlum *tmp)
 {
 	int			k;
+	t_lstlum	*lum;
 
+	lum = tmp;
 	k = 0;
 	while (tmp)
 	{
 		tmp = tmp->next;
 		k++;
 	}
+	tmp = lum;
 	return (k);
 }
 
 t_lum			*lstlum_to_lum(t_lstlum *lstlum, int size)
 {
 	t_lum		*lum;
+	t_lstlum	*tmp;
 	int			j;
 
+	tmp = lstlum;
 	if (!(lum = (t_lum*)ft_memalloc(sizeof(t_lum) * size)))
+	{
+		free_lstlum(&lstlum);
 		return (NULL);
+	}
 	j = -1;
 	while (++j < size)
 	{
 		lum[j] = lstlum->lum;
 		lstlum = lstlum->next;
 	}
+	free_lstlum(&tmp);
 	return (lum);
 }
 

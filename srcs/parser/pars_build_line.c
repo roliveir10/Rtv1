@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:16:29 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 21:39:03 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 04:33:03 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	lex_process(t_token *token, t_stat *stat, char buff[BUFF])
 	return (0);
 }
 
-static int	lex_error(t_token *token, t_stat *stat, int k)
+static int	lex_error(t_token **token, t_stat *stat, int k)
 {
 	ft_strdel(&stat->load);
 	free_token(token);
@@ -67,7 +67,7 @@ int			pars_build_line(t_token *token, char *str, t_stat *stat, int s)
 		stat->status = get_next_state(stat->status, stat->type);
 		stat->val = get_val(stat->old_status, stat->type);
 		if (lex_process(token, stat, buff))
-			return (lex_error(token, stat, s));
+			return (lex_error(&token, stat, s));
 	}
 	if (buff[0])
 		lex_add_token(buff, stat, token);

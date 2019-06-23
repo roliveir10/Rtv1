@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:32:59 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 11:39:14 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:27:33 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void		pars_fill_cam(t_cam *cam)
 	cam->vp_width = SCREENX;
 	cam->vp_height = SCREENY;
 	cam->vp_dist = 1000;
-
 	cam->pos.x = 0.0;
 	cam->pos.y = 0.0;	
 	cam->pos.z = -30.0;	
@@ -34,7 +33,7 @@ int				main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("rtv1: file.json\n", 2);
+		ft_putstr_fd("usage: rtv1 file.json\n", 2);
 		return (1);
 	}
 	ft_bzero(&env, sizeof(t_env));

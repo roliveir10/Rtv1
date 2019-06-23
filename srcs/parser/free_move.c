@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_struct.c                                      :+:      :+:    :+:   */
+/*   free_move.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/11 15:13:35 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/12 00:00:24 by oboutrol         ###   ########.fr       */
+/*   Created: 2019/06/23 03:48:17 by oboutrol          #+#    #+#             */
+/*   Updated: 2019/06/23 15:22:21 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include <stdlib.h>
 
-void		free_token(t_token *token)
+int				free_move(t_token **token)
 {
-	if (!token)
-		return ;
-	free_token(token->next);
-	ft_strdel(&(token->word));
-	free(token);
+	t_token		*tmp;
+
+	if (!token || !(*token))
+		return (1);
+	tmp = *token;
+	if (!(*token = (*token)->next))
+		return (1);
+	ft_strdel(&tmp->word);
+	free(tmp);
+	return (0);
+}
+
+int				free_double_move(t_token **token)
+{
+	if (free_move(token) || free_move(token))
+		return (1);
+	return (0);
 }

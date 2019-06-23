@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 01:01:50 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:56:29 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static int		pars_select_field(t_token **token, t_form *form, t_env *env)
 	int			ret;
 
 	ret = 0;
-	word = (*token)->word;
+	word = ft_strdup((*token)->word);
 	if (!word)
 		return (1);
-	if (!(*token = (*token)->next))
+	if (free_move(token))
 		return (1);
-	if (!(*token = (*token)->next))
+	if (free_move(token))
 		return (1);
 	if (!ft_strcmp(word, "\"origin\""))
 		form->center = pars_vector(token);
@@ -60,6 +60,7 @@ static int		pars_select_field(t_token **token, t_form *form, t_env *env)
 		form->angle = pars_double(token);
 	else
 		ret = following(form, word, token, env);
+	ft_strdel(&word);
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 17:41:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/22 01:22:39 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/23 16:12:08 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int		token_next(t_token **token)
 {
-	if (!(*token = (*token)->next) || (*token)->type != NOMBR)
+	if (free_move(token) || (*token)->type != NOMBR)
 		return (1);
 	return (0);
 }
@@ -37,16 +37,18 @@ int				pars_name(t_token **token)
 	static char	*lst[NBR_FORM] = {"\"sphere\"", "\"plan\"",
 		"\"cylindre\"", "\"cone\""};
 
-	if (!(name = (*token)->word))
+	if (!(name = ft_strdup((*token)->word)))
 		return (NOTAFORM);
 	k = -1;
 	while (++k < NBR_FORM)
 		if (!ft_strcmp(name, lst[k]))
 		{
-			*token = (*token)->next;
+			free_move(token);
+			ft_strdel(&name);
 			return (k);
 		}
-	*token = (*token)->next;
+	free_move(token);
+	ft_strdel(&name);
 	return (NOTAFORM);
 }
 
@@ -55,7 +57,7 @@ t_vector		pars_vector(t_token **token)
 	t_vector	vect;
 
 	ft_bzero(&vect, sizeof(t_vector));
-	if ((*token)->type != BRAO || !(*token = (*token)->next))
+	if ((*token)->type != BRAO || free_move(token))
 		return (vect);
 	vect.x = ft_atod((*token)->word);
 	if (token_next(token))
@@ -64,7 +66,7 @@ t_vector		pars_vector(t_token **token)
 	if (token_next(token))
 		return (vect);
 	vect.z = ft_atod((*token)->word);
-	if (!(*token = (*token)->next))
+	if (free_move(token))
 		return (vect);
 	return (vect);
 }
