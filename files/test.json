@@ -1,0 +1,61 @@
+{
+	 "camera":
+		 {
+			 "origin":[10,         20, 30],
+			 "vect_n":[0, 1, 0]
+		 },
+		 "light":[
+		 {
+			 "origin":[3, 0, 0],
+			 "color":[0, 255, 255],
+			 "type":"point"
+		 }],
+		 "object":[
+		 {
+			 "name":"cone",
+			 "angle":0.2,
+			 "rotation":[0, 0, 25],
+			 "origin":[0, 3.3, 40],
+			 "rayon":1,
+			 "color":[10, 255, 200],
+			 "material":"jade"
+		 },
+			{
+			 "name":"cone",
+			 "angle":0.1,
+			 "rotation":[0, 0, -25],
+			 "origin":[0, 0, 40],
+			 "rayon":1,
+			 "color":[10, 255, 200],
+			 "material":"jade"
+		 },
+
+		 { 
+			 "name":"cone",
+			 "angle":0.1,
+			 "rotation":[0, 0, -25],
+			 "origin":[0, -10, 40],
+			 "rayon":1,
+			 "color":[255, 255, 255]
+		 },
+		{
+			 "name":"sphere",
+			 "origin":[-20, 0, 40],
+			 "rayon":5,
+			 "color":[255, 255, 255],
+			 "material":"jade"
+		},
+		{
+			 "name":"sphere",
+			 "origin":[0, 0, 20],
+			 "rayon":5,
+			 "color":[255, 255, 255],
+			 "material":"jade"
+		},
+		{
+			 "name":"sphere",
+			 "origin":[15, 0, 40],
+			 "rayon":5,
+			 "color":[255, 255, 0]
+		}]
+}

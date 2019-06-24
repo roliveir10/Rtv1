@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 03:48:17 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 15:22:21 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:09:15 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,16 @@ int				free_move(t_token **token)
 	t_token		*tmp;
 
 	if (!token || !(*token))
-		return (1);
+	{
+		ft_putstr_fd("rtv1: unexpected end of file\n", 2);
+		exit(1);
+	}
 	tmp = *token;
 	if (!(*token = (*token)->next))
-		return (1);
+	{
+		ft_putstr_fd("rtv1: unexpected end of file\n", 2);
+		exit(1);
+	}
 	ft_strdel(&tmp->word);
 	free(tmp);
 	return (0);
