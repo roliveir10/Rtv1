@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 13:58:51 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:23:20 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void		rt_initialize_rotation(t_form **form, t_cam *cam, int nbr_form)
 	{
 		j = -1;
 		while (++j < 3)
-			cam->vec_dir[j] = ft_vrotate(cam->vec_dir[j], cmat[j]);
+			cam->vec_dir[i] = ft_vrotate(cam->vec_dir[i], cmat[j]);
 	}
 }

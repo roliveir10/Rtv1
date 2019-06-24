@@ -6,7 +6,8 @@
 	},
 	"camera":
 	{
-		"origin":[0, 0, -30]
+		"origin":[0, 0, -30],
+		"rotation":[0, 0, 90]
 	},
 	"light":[
 	{

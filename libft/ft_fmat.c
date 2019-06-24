@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:56:58 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 05:00:42 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:24:35 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void		ft_fmatz(double (*mat)[3][3][3], double cos, double sin)
 	(*mat)[2][1][1] = cos;
 	(*mat)[2][2][2] = 1.0;
 }
-
 
 void			ft_fmat(double (*mat)[3][3][3], t_vector rotation,
 		double way)
