@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/24 13:37:08 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:15:23 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,12 @@ typedef enum		e_status
 	LSTOB,
 	LSTCP,
 	ERROR,
-	PILDW///////////virtual END
-	/*OBRAC,
-	OCURL,
-	CBRAC,
-	CCURL*/
+	PILDW
 }					t_status;
 
 /*
 **	enum for char_types
-**	
+**
 **	DBQT |	Double quote, in order to store word
 **	TWPT |	Separator Name, Argument
 **	NBRS |	Digit kind
