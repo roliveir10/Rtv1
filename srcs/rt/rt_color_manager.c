@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 17:17:08 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 03:40:39 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:18:22 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vector		rt_get_color(t_lum lum, t_inter inter, t_material mat)
 
 	angle = ft_dot(inter.norm, inter.lightdir);
 	ft_bzero(&color, sizeof(t_vector));
-	if (angle > -0.01)
+	if (angle > 0)
 	{
 		attenuation = rt_attenuation(lum, ft_vdist(lum.pos, inter.pos));
 		ltot = ft_vadd(ft_vadd(

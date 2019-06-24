@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:28:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 04:33:07 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 10:47:17 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 void		free_token(t_token **token)
 {
-	if (!(*token))
+	if (!token || !(*token))
 		return ;
-	free_token(&(*token)->next);
-	ft_strdel(&(*token)->word);
+	if ((*token)->next)
+		free_token(&(*token)->next);
+	if ((*token)->word)
+		ft_strdel(&(*token)->word);
 	free(*token);
 	*token = NULL;
 }

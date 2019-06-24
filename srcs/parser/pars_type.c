@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 22:32:59 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:18:17 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ int					pars_object(t_token **token, t_env *env)
 		return (-1);
 	if ((*token)->type == BRAO)
 	{
-		free_move(token);
+		if (free_move(token))
+			return (-1);
 		while (1)
 		{
 			form = pars_one_form(token, env);
 			add_form(&lstform, form);
 			if (!(*token) || (*token)->type != ENDED)
 				break ;
-			free_move(token);
+			if (free_move(token))
+				return (-1);
 		}
 		free_move(token);
 	}
@@ -90,14 +92,16 @@ int					pars_light(t_token **token, t_env *env)
 		return (-1);
 	if ((*token)->type == BRAO)
 	{
-		free_move(token);
+		if (free_move(token))
+			return (-1);
 		while (1)
 		{
 			light = pars_one_light(token);
 			add_light(&lstlum, light);
 			if (!(*token) || (*token)->type != ENDED)
 				break ;
-			free_move(token);
+			if (free_move(token))
+				return (-1);
 		}
 		free_move(token);
 	}

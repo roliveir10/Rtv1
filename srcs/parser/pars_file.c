@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:58:22 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 20:23:28 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:18:25 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int			pars_file(char *str, t_env *env)
 	int		fd;
 	t_token	*token;
 	char	*rest;
+	int		err;
 
 	token = NULL;
 	rest = NULL;
@@ -92,6 +93,7 @@ int			pars_file(char *str, t_env *env)
 		return (quit_free(&token, 1, &rest));
 	if (rest)
 		free(rest);
-	*env = token_to_env(&token->next);
-	return (quit_free(&token, 0, &rest));
+	err = 0;
+	*env = token_to_env(&token->next, &err);
+	return (quit_free(&token, err, &rest));
 }

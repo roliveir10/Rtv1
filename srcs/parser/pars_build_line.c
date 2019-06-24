@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 21:16:29 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 22:07:42 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 11:09:54 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ static int	lex_process(t_token *token, t_stat *stat, char buff[BUFF])
 		if ((type = pile_last(stat)) == BRAO)
 			stat->status = LSTOB;
 	if (st == ERROR)
-	{
-		ft_putendl(buff);
 		return (1);
-	}
 	if (stat->type != SPAC && (st == LSTCP || st == LSTOB))
 		pile_up(stat, stat->type);
 	if (stat->type != SPAC)
@@ -42,11 +39,10 @@ static int	lex_process(t_token *token, t_stat *stat, char buff[BUFF])
 	return (0);
 }
 
-static int	lex_error(t_token **token, t_stat *stat, int k)
+static int	lex_error(t_stat *stat, int k)
 {
 	ft_strdel(&stat->load);
-	free_token(token);
-	ft_putstr_fd("rt: error line ", 2);
+	ft_putstr_fd("rtv1: error line ", 2);
 	ft_putnbr_fd(k, 2);
 	ft_putstr("\n");
 	return (1);
@@ -82,7 +78,7 @@ int			pars_build_line(t_token *token, char *str, t_stat *stat, int s)
 		stat->status = get_next_state(stat->status, stat->type);
 		stat->val = get_val(stat->old_status, stat->type);
 		if (lex_process(token, stat, buff))
-			return (lex_error(&token, stat, s));
+			return (lex_error(stat, s));
 		if (stat->old_status == NOMBR && stat->type == CARM && k != 0)
 			add_token(token, ",", ENDED);
 	}
