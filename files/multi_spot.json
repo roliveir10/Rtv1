@@ -6,8 +6,7 @@
 	},
 	"camera":
 	{
-		"origin":[0, 0, -30],
-		"vect_n":[0, 1, 0]
+		"origin":[0, 0, -30]
 	},
 	"light":[
 	{
@@ -61,13 +60,13 @@
 		{
 			"name":"plan",
 			"origin":[0, -5, 45], 
-			"point":[0, 0, 1],
+			"rotation":[90, 0, 0],
 			"color":[255, 255, 255]
 		},
 		{
 			"name":"plan",
 			"origin":[30, 30, 0],
-			"point":[-1, 0, 0],
+			"rotation":[180, 0, 0],
 			"color":[255, 255, 255]
 		}]
 }

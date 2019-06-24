@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 06:50:26 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:58:51 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,24 @@ void		rt_reset_point(t_form form, t_vector *inte)
 	*inte = ft_vadd(*inte, form.center);
 }
 
-void		rt_initialize_rotation(t_form **form, int nbr_form)
+void		rt_initialize_rotation(t_form **form, t_cam *cam, int nbr_form)
 {
 	int		i;
+	int		j;
+	double	cmat[3][3][3];
 
 	i = -1;
 	while (++i < nbr_form)
 	{
 		ft_fmat(&(*form)[i].mat, (*form)[i].rotation, -1);
 		ft_fmat(&(*form)[i].mati, (*form)[i].rotation, 1);
+	}
+	i = -1;
+	ft_fmat(&cmat, cam->rotation, -1);
+	while (++i < 3)
+	{
+		j = -1;
+		while (++j < 3)
+			cam->vec_dir[j] = ft_vrotate(cam->vec_dir[j], cmat[j]);
 	}
 }

@@ -7,7 +7,7 @@
 	"camera":
 	{
 		"origin":[0, 0, -30],
-		"vect_n":[0, 1, 0]
+		"rotation":[0, 0, 90]
 	},
 	"light":[
 	{
@@ -25,8 +25,7 @@
 		{
 			"name":"plan",
 			"origin":[0, -5, 100], 
-			"point":[0, 0, 1],
-			"rotation":[-90, 0, 0],
+			"rotation":[90, 0, 0],
 			"color":[255, 255, 255]
 		},
 		{

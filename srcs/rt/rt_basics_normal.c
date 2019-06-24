@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 20:42:41 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 06:51:06 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:47:29 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ static t_vector			rt_norm_sphere(t_vector pos, t_form form)
 
 static t_vector			rt_norm_plan(t_vector pos, t_form form)
 {
+	t_vector			norm;
+
+	(void)form;
 	(void)pos;
-	return (ft_normalize(form.point));
+	ft_bzero(&norm, sizeof(t_vector));
+	norm.y = 1;
+	return (norm);
 }
 
 static t_vector			rt_norm_cylindre(t_vector pos, t_form form)

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 13:37:12 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:58:52 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,8 @@ void					rt_mmovecam_pos(t_env *env, int keycode);
 **	rotation
 */
 
-void					rt_initialize_rotation(t_form **form, int nbr_form);
+void					rt_initialize_rotation(t_form **form, t_cam *cam,
+		int nbr_form);
 void					rt_set_ref(t_ray *ray, t_form form);
 void					rt_reset_point(t_form form, t_vector *inte);
 

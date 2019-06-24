@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 15:17:43 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 10:07:30 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:47:31 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ double			rt_plan(t_ray ray, t_form form)
 {
 	double		dist;
 
-	dist = -(ft_dot(form.point, ray.o)) / ft_dot(form.point, ray.dir);
+	(void)form;
+	dist = -ray.o.y / ray.dir.y;
 	return (dist <= 0 ? -1 : dist);
 }
 
