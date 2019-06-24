@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 13:00:00 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 02:29:22 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:15:45 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static t_vector			rt_getaverage(t_ray (*ray)[], t_env *env, int pos)
 	int					i;
 	t_vector			color[4];
 	t_vector			average;
-	static double		vx[4] = {0, 0.5, 0, 0.5};
-	static double		vy[4] = {0, 0, 0.5, 0.5};
+	static double		vx[4] = {0, 1, 0, 1};
+	static double		vy[4] = {0, 0, 1, 1};
 
 	i = -1;
 	while (++i < 4)
