@@ -6,13 +6,14 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/23 02:11:36 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 22:12:11 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:26:10 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pars.h"
 #include "libft.h"
 
+#include <stdio.h>
 int					pars_camera(t_token **token, t_env *env)
 {
 	int				ret;

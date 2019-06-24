@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 19:15:46 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/24 11:18:23 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:37:08 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int					free_double_move(t_token **token);
 **	Parsing fields
 */
 
+void				pars_fill_cam(t_cam *cam);
 int					pars_field_light(t_token **token, t_lum *light);
 t_material			pars_material(t_token **token, t_env *env);
 int					pars_field_form(t_token **token, t_form *form, t_env *env);

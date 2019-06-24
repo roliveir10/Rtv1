@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 16:20:16 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 22:33:54 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:37:10 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int		pars_select_field(t_token **token, t_env *env)
 	}
 	if (!ft_strcmp(word, "\"origin\""))
 		env->cam.pos = pars_vector(token);
-	else if (!ft_strcmp(word, "\"vect_n\""))
-		env->cam.vec_dir[0] = pars_vector(token);
+	else if (!ft_strcmp(word, "\"rotation\""))
+		env->cam.rotation = pars_vector(token);
 	else
 	{
 		ft_putstr_fd("rtv1: invalid field: ", 2);

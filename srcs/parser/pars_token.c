@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 17:12:49 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/24 11:18:19 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:33:09 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_env		token_to_env(t_token **token, int *err)
 
 	ret = 1;
 	ft_bzero(&env, sizeof(t_env));
+	pars_fill_cam(&env.cam);
 	env.scene.spec = 0.5;
 	env.scene.ambient = 0.1;
 	if (!token || !(*token))

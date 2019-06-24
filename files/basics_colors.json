@@ -6,8 +6,7 @@
 	},
 	"camera":
 	{
-		"origin":[0, 0, -30],
-		"vect_n":[0, 1, 0]
+		"origin":[0, 0, -80]
 	},
 	"light":[
 	{

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 02:53:11 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:37:12 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,10 @@ typedef struct			s_cam
 	t_vector			pos;
 	t_vector			vec_dir[3];
 	t_vector			vp_upleft;
+	t_vector			rotation;
 	double				vp_width;
 	double				vp_height;
 	double				vp_dist;
-	double				rot_mat[3][3][3];
 }						t_cam;
 
 typedef struct			s_form
