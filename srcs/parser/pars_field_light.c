@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 20:35:34 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/23 16:03:39 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:57:15 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		following(t_token **token, t_lum *light, char *word)
 		light->type = pars_name_light(token);
 	else
 	{
-		ft_putstr_fd("rt: invalid field: ", 2);
+		ft_putstr_fd("rtv1: invalid field: ", 2);
 		ft_putstr_fd(word, 2);
 		ft_putstr_fd(" in type `light'\n", 2);
 		return (1);
@@ -78,10 +78,10 @@ int				pars_field_light(t_token **token, t_lum *light)
 {
 	if ((*token)->type != NAMES)
 	{
-		ft_putstr_fd("rt: wrong format for light definition\n", 2);
-		return (1);
+		ft_putstr_fd("rtv1: wrong format for light definition\n", 2);
+		return (-1);
 	}
 	if (pars_select_field(token, light))
-		return (1);
+		return (-1);
 	return (0);
 }
