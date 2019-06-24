@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:28:08 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/24 06:50:22 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:07:59 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void			rt_getinter_data(t_env *env, t_inter *inter, t_vector vdir)
 		inter->norm = ft_vrotate(inter->norm, env->form[inter->id].mati[i]);
 	if (ft_dot(inter->norm, vdir) > 0)
 		inter->norm = ft_vmul(inter->norm, -1);
-	inter->pos = ft_vadd(ft_vmul(inter->norm, 1e-4), inter->pos);
+	inter->pos = ft_vadd(ft_vmul(inter->norm, 1e-5), inter->pos);
 	inter->viewdir = ft_vmul(vdir, -1);
 	inter->blinn = env->scene.blinn;
 }
