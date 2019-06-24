@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:57:56 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 08:00:24 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 02:42:31 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int					rt_main(t_env *env)
 	mlx_hook(env->mlx.id, KEYPRESS, 0, rt_keypress, (void*)env);
 	mlx_hook(env->mlx.id, REDBUTTON, 0, rt_close, (void*)env);
 	mlx_hook(env->mlx.id, MOUSEPRESS, 0, rt_mousepress, (void*)env);
+	mlx_hook(env->mlx.id, KEYRELEASE, 0, rt_keyrelease, (void*)env);
 	mlx_loop_hook(env->mlx.mlx, rt_print, (void*)env);
 	env->offset = 32;
 	mlx_loop(env->mlx.mlx);

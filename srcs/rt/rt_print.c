@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:07 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 14:03:07 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 02:53:08 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ static void				*rt_print_line(void *param)
 	limit = SCREENX * (env->line_id + env->offset);
 	if (limit >= SCREEN)
 		limit = SCREEN - 1;
-	if (env->offset == PIX)
-		pos = env->line_id * SCREENX;
-	else
-		pos = env->line_id * SCREENX + env->offset;
+	pos = env->line_id * SCREENX + (env->offset == PIX ? 0 : env->offset);
 	env->line_id += env->offset;
 	ray.o = env->cam.pos;
 	while (pos < limit)
@@ -65,14 +62,14 @@ static void				*rt_print_line(void *param)
 	return (env);
 }
 
-static void				rt_thread(void *env)
+void					rt_thread(void *env, void *(func)(void*))
 {
 	pthread_t			id[NBR_THREAD];
 	int					i;
 
 	i = -1;
 	while (++i < NBR_THREAD)
-		pthread_create(&id[i], NULL, rt_print_line, env);
+		pthread_create(&id[i], NULL, func, env);
 	i = -1;
 	while (++i < NBR_THREAD)
 		pthread_join(id[i], NULL);
@@ -89,16 +86,15 @@ int						rt_print(void *param)
 		pos = 0;
 		while (pos < SCREEN)
 		{
-			rt_thread((void*)env);
+			rt_thread((void*)env, rt_print_line);
 			pos += SCREENX * NBR_THREAD * env->offset;
 		}
-		env->offset /= 2;
+		if (!env->key_repeat)
+			env->offset /= 2;
 		mlx_put_image_to_window(env->mlx.mlx, env->mlx.id,
 				env->mlx.image, 0, 0);
 		env->line_id = 0;
-		rt_antialiasing(env);
-		return (0);
+		return (rt_antialiasing(env));
 	}
-	rt_antialiasing(env);
-	return (0);
+	return (rt_antialiasing(env));
 }

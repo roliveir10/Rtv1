@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 04:16:17 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 18:37:43 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 03:25:46 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void				rt_update_camrot(t_cam *cam, double mat[3][3][3])
 
 void				rt_movecam_pos(t_env *env, int keycode)
 {
+	env->key_repeat = 1;
 	if (keycode == KLEFT)
 		env->cam.pos.x -= SCREENX / 500;
 	else if (keycode == KRIGHT)
@@ -71,6 +72,7 @@ void				rt_movecam_rot(t_env *env, int keycode)
 	double			neg;
 
 	neg = 1;
+	env->key_repeat = 1;
 	ft_bzero(&rotation, sizeof(t_vector));
 	if (keycode == KRXUP || keycode == KRYRIGHT || keycode == KRZRIGHT)
 		neg = -1;

@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 04:57:13 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 09:32:17 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 06:50:26 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		rt_initialize_rotation(t_form **form, int nbr_form)
 	i = -1;
 	while (++i < nbr_form)
 	{
-		ft_fmat(&(*form)[i].mat, (*form)[i].rotation, 1);
-		ft_fmat(&(*form)[i].mati, (*form)[i].rotation, -1);
+		ft_fmat(&(*form)[i].mat, (*form)[i].rotation, -1);
+		ft_fmat(&(*form)[i].mati, (*form)[i].rotation, 1);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: roliveir <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 10:06:25 by roliveir          #+#    #+#              #
-#    Updated: 2019/06/23 13:34:48 by roliveir         ###   ########.fr        #
+#    Updated: 2019/06/24 02:53:09 by roliveir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ RT = rt_main.c					\
 	 rt_rotation.c				\
 	 rt_material.c				\
 	 rt_camera.c				\
-	 rt_anti_aliasing.c
+	 rt_anti_aliasing.c			\
+	 rt_keyfunction.c
 
 RT_SRCS = $(addprefix $(RT_PATH),$(RT))
 SRCS += $(RT_SRCS)

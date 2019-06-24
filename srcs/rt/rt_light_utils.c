@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 02:07:21 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 18:38:57 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 02:23:22 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_vector		rt_spec(t_vector light, t_inter inter, t_material mat,
 	t_vector	spec;
 	double		angle;
 
-	if (BLINN == 1)
+	if (inter.blinn)
 		angle = ft_dot(inter.norm, ft_normalize(ft_vadd(inter.lightdir,
 						inter.viewdir)));
 	else

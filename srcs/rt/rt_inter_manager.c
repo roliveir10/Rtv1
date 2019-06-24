@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:28:08 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 11:37:05 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 06:50:22 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ static void			rt_getinter_data(t_env *env, t_inter *inter, t_vector vdir)
 	i = 3;
 	inter->color = env->form[inter->id].color;
 	inter->norm = rt_get_normal(inter->pos, env->form[inter->id]);
-	if (ft_dot(inter->norm, vdir) > 0)
-		inter->norm = ft_vmul(inter->norm, -1);
-	inter->pos = ft_vadd(ft_vmul(inter->norm, 1e-4), inter->pos);
 	rt_reset_point(env->form[inter->id], &inter->pos);
 	while (--i + 1)
 		inter->norm = ft_vrotate(inter->norm, env->form[inter->id].mati[i]);
+	if (ft_dot(inter->norm, vdir) > 0)
+		inter->norm = ft_vmul(inter->norm, -1);
+	inter->pos = ft_vadd(ft_vmul(inter->norm, 1e-4), inter->pos);
 	inter->viewdir = ft_vmul(vdir, -1);
+	inter->blinn = env->scene.blinn;
 }
 
 static int			rt_shape_inter(t_env *env, int *indsh, t_ray *ray,

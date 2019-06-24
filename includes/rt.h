@@ -6,7 +6,7 @@
 /*   By: roliveir <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 10:58:12 by roliveir          #+#    #+#             */
-/*   Updated: 2019/06/23 14:03:11 by roliveir         ###   ########.fr       */
+/*   Updated: 2019/06/24 02:53:11 by roliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@
 # define NBR_FORM 4
 # define NBR_THREAD 4
 # define NBR_MATERIAL 2
-# define NBR_KEY 11
+# define NBR_KEY 13
+# define NBR_KEY_REPEAT 11
 # define NBR_MKEY 2
-# define BLINN 1
 # define PIX 32
-# define ANTI_A 0
 
 /*
 ** ENUM
@@ -36,7 +35,8 @@ typedef enum			e_event
 {
 	KEYPRESS = 2,
 	REDBUTTON = 17,
-	MOUSEPRESS = 4
+	MOUSEPRESS = 4,
+	KEYRELEASE = 3
 }						t_event;
 
 typedef enum			e_key
@@ -51,7 +51,9 @@ typedef enum			e_key
 	KRYRIGHT = 117,
 	KRYLEFT = 121,
 	KRZRIGHT = 279,
-	KRZLEFT = 116
+	KRZLEFT = 116,
+	KAA = 0,
+	KBLINN = 11
 }						t_key;
 
 typedef enum			e_mkey
@@ -104,6 +106,7 @@ typedef struct			s_inter
 	t_vector			norm;
 	t_vector			viewdir;
 	t_vector			lightdir;
+	char				blinn;
 	int					id;
 }						t_inter;
 
@@ -113,7 +116,7 @@ typedef struct			s_material
 	t_vector			diffuse;
 	t_vector			specular;
 	float				shininess;
-}						t_material; 
+}						t_material;
 
 typedef struct			s_lum
 {
@@ -163,6 +166,8 @@ typedef struct			s_scene
 {
 	float				ambient;
 	float				spec;
+	char				aa;
+	char				blinn;
 	t_material			material[NBR_MATERIAL];
 }						t_scene;
 
@@ -176,6 +181,7 @@ typedef struct			s_env
 	t_form				*form;
 	t_lum				*lum;
 	t_vector			color;
+	char				key_repeat;
 	int					offset;
 	int					line_id;
 }						t_env;
@@ -198,8 +204,9 @@ double					rt_cone(t_ray ray, t_form form);
 */
 
 int						rt_print(void *param);
+void					rt_thread(void *env, void *(func)(void*));
 void					rt_add_pixel(t_env *env, t_vector color, int pos);
-void					rt_antialiasing(t_env *env);
+int						rt_antialiasing(t_env *env);
 
 /*
 **	light
@@ -233,13 +240,15 @@ t_vector				rt_get_posinter(t_ray ray, double dist);
 t_vector				rt_get_normal(t_vector v, t_form form);
 double					rt_inter(t_ftype ftype, t_ray *ray, t_form form);
 
-
 /*
 **	key_handler
 */
 
 int						rt_keypress(int keycode, void *param);
+int						rt_keyrelease(int keycode, void *param);
 int						rt_close(void *param);
+void					rt_escap(t_env *env, int keycode);
+void					rt_aa_blinn(t_env *env, int keycode);
 
 /*
 **	mouse_handler
