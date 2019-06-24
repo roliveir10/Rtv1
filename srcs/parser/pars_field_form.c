@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 00:14:42 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/24 13:37:00 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:45:48 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static int		following(t_form *form, char *word, t_token **token, t_env *env)
 		form->material = pars_material(token, env);
 	else
 	{
-		ft_putstr_fd("rt: invalid field: ", 2);
+		ft_putstr_fd("rtv1: invalid field: ", 2);
 		ft_putstr_fd(word, 2);
 		ft_putstr_fd(" in type `form'\n", 2);
-		return (1);
+		return (-1);
 	}
 	return (0);
 }
@@ -68,7 +68,7 @@ int				pars_field_form(t_token **token, t_form *form, t_env *env)
 {
 	if ((*token)->type != NAMES)
 	{
-		ft_putstr_fd("rt: wrong format for form definition\n", 2);
+		ft_putstr_fd("rtv1: wrong format for form definition\n", 2);
 		return (-1);
 	}
 	if (pars_select_field(token, form, env))

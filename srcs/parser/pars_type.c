@@ -6,7 +6,7 @@
 /*   By: oboutrol <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/16 19:49:55 by oboutrol          #+#    #+#             */
-/*   Updated: 2019/06/24 13:37:05 by oboutrol         ###   ########.fr       */
+/*   Updated: 2019/06/24 13:57:09 by oboutrol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,17 @@ int					pars_object(t_token **token, t_env *env)
 
 	lstform = NULL;
 	free_move(token);
-	if (free_move(token))
-		return (-1);
+	free_move(token);
 	if ((*token)->type == BRAO)
 	{
-		if (free_move(token))
-			return (-1);
+		free_move(token);
 		while (1)
 		{
 			form = pars_one_form(token, env);
 			add_form(&lstform, form);
 			if (!(*token) || (*token)->type != ENDED)
 				break ;
-			if (free_move(token))
-				return (-1);
+			free_move(token);
 		}
 		free_move(token);
 	}
@@ -88,20 +85,17 @@ int					pars_light(t_token **token, t_env *env)
 
 	lstlum = NULL;
 	free_move(token);
-	if (free_move(token))
-		return (-1);
+	free_move(token);
 	if ((*token)->type == BRAO)
 	{
-		if (free_move(token))
-			return (-1);
+		free_move(token);
 		while (1)
 		{
 			light = pars_one_light(token);
 			add_light(&lstlum, light);
 			if (!(*token) || (*token)->type != ENDED)
 				break ;
-			if (free_move(token))
-				return (-1);
+			free_move(token);
 		}
 		free_move(token);
 	}
