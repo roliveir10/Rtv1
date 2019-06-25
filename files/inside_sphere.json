@@ -6,7 +6,7 @@
 	},
 	"camera":
 	{
-		"origin":[0, 0, 50]
+		"origin":[0, 0, -45]
 	},
 	"light":[
 	{

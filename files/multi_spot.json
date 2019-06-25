@@ -66,7 +66,7 @@
 		{
 			"name":"plan",
 			"origin":[30, 30, 0],
-			"rotation":[180, 0, 0],
+			"rotation":[0, 0, 90],
 			"color":[255, 255, 255]
 		}]
 }
